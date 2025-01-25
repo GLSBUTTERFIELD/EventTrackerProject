@@ -17,7 +17,7 @@ import jakarta.persistence.Persistence;
 class IngredientTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Recipe recipe;
+	private Ingredient ingredient;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,20 +32,27 @@ class IngredientTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		recipe = em.find(Recipe.class, 1);
+		ingredient = em.find(Ingredient.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		recipe = null;
+		ingredient = null;
 		em.close();
 	}
 
 	@Test
-	void test_Recipe_basic_mapping() {
-		assertNotNull(recipe);
-		assertEquals("Korean Beef Bowls", recipe.getTitle());
-		assertEquals(15, recipe.getPrepTime());
+	void test_Ingredient_basic_mapping() {
+		assertNotNull(ingredient);
+		assertEquals("White rice", ingredient.getName());
+		assertNotNull(ingredient.getNotes());
+	}
+
+	@Test
+	void test_Ingredient_Recipe_ManyToMany_mapping() {
+		assertNotNull(ingredient);
+		assertNotNull(ingredient.getRecipes());
+		assertTrue(ingredient.getRecipes().size() > 0);
 	}
 
 }

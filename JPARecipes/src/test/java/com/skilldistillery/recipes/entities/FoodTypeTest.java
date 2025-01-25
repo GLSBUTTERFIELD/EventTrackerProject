@@ -46,5 +46,12 @@ class FoodTypeTest {
 		assertNotNull(foodType);
 		assertEquals("Asian", foodType.getName());
 	}
+	
+	@Test 
+	void test_FoodType_Recipe_OneToMany_mapping() {
+		assertNotNull(foodType);
+		assertNotNull(foodType.getRecipes());
+		assertTrue(foodType.getRecipes().size() > 0);
+	}
 
 }

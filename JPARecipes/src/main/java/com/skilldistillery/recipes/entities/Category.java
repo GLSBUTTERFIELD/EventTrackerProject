@@ -1,11 +1,15 @@
 package com.skilldistillery.recipes.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Category {
@@ -14,6 +18,10 @@ public class Category {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String name;
+	@ManyToMany
+	@JoinTable(name="recipe_category", joinColumns = @JoinColumn(name="category_id"), 
+				inverseJoinColumns = @JoinColumn(name="recipe_id"))
+	private List<Recipe> recipes;
 	
 	public Category() {
 	}
@@ -28,6 +36,13 @@ public class Category {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public List<Recipe> getRecipes() {
+		return recipes;
+	}
+	public void setRecipes(List<Recipe> recipes) {
+		this.recipes = recipes;
 	}
 	@Override
 	public int hashCode() {

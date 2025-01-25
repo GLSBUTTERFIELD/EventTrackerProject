@@ -49,4 +49,10 @@ class ReviewTest {
 		assertEquals("start rice earlier", review.getNotesForFuture());
 	}
 
+	@Test
+	void test_Review_Recipe_ManyToOne_mapping() {
+		assertNotNull(review);
+		assertEquals("Korean Beef Bowls", review.getRecipe().getTitle());
+	}
+	
 }

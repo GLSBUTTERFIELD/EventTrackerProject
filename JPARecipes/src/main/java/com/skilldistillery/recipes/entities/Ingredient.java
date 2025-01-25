@@ -1,5 +1,6 @@
 package com.skilldistillery.recipes.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Ingredient {
@@ -20,6 +24,10 @@ public class Ingredient {
 	@Column(name = "quantity_unit")
 	private String quantityUnit;
 	private String notes;
+	@ManyToMany
+	@JoinTable(name="recipe_ingredient", joinColumns = @JoinColumn(name="ingredient_id"), 
+				inverseJoinColumns = @JoinColumn(name="recipe_id"))
+	private List<Recipe> recipes;
 
 	public Ingredient() {
 	}
@@ -62,6 +70,14 @@ public class Ingredient {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public List<Recipe> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(List<Recipe> recipes) {
+		this.recipes = recipes;
 	}
 
 	@Override

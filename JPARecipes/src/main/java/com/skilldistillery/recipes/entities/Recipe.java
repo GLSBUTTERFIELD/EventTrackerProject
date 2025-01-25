@@ -1,6 +1,7 @@
 package com.skilldistillery.recipes.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,6 +12,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Recipe {
@@ -38,7 +43,15 @@ public class Recipe {
 	@UpdateTimestamp
 	private LocalDateTime lastUpdate;
 	private Boolean enabled;
-	
+	@ManyToOne
+	@JoinColumn(name="food_type_id")
+	private FoodType foodType;
+	@OneToMany(mappedBy="recipe")
+	private List<Review> reviews;
+	@ManyToMany(mappedBy="recipes")
+	private List<Category> categories;
+	@ManyToMany(mappedBy="recipes")
+	private List<Ingredient> ingredients;
 	
 	public Recipe() {
 	}
@@ -145,6 +158,38 @@ public class Recipe {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public FoodType getFoodType() {
+		return foodType;
+	}
+
+	public void setFoodType(FoodType foodType) {
+		this.foodType = foodType;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+	
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
 	}
 
 	@Override

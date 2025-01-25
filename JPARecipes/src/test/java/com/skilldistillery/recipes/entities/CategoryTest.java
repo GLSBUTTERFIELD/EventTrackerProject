@@ -46,5 +46,13 @@ class CategoryTest {
 		assertNotNull(category);
 		assertEquals("Breakfast", category.getName());
 	}
+	
+	@Test
+	void test_Category_Recipe_ManyToMany_mapping() {
+		category = em.find(Category.class, 3);
+		assertNotNull(category);
+		assertNotNull(category.getRecipes());
+		assertTrue(category.getRecipes().size() > 0);
+	}
 
 }
