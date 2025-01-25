@@ -45,14 +45,13 @@ class IngredientTest {
 	void test_Ingredient_basic_mapping() {
 		assertNotNull(ingredient);
 		assertEquals("White rice", ingredient.getName());
-		assertNotNull(ingredient.getNotes());
 	}
 
 	@Test
-	void test_Ingredient_Recipe_ManyToMany_mapping() {
+	void test_Ingredient_RecipeIngredient_ManyToMany_mapping() {
 		assertNotNull(ingredient);
-		assertNotNull(ingredient.getRecipes());
-		assertTrue(ingredient.getRecipes().size() > 0);
+		assertNotNull(ingredient.getRecipeIngredients());
+		assertTrue(ingredient.getRecipeIngredients().size() > 0);
 	}
 
 }

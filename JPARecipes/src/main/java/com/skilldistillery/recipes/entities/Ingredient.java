@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Ingredient {
@@ -21,16 +22,11 @@ public class Ingredient {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	@Column(name = "quantity_amount")
-	private Double quantityAmount;
-	@Column(name = "quantity_unit")
-	private String quantityUnit;
-	private String notes;
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name="recipe_ingredient", joinColumns = @JoinColumn(name="ingredient_id"), 
-				inverseJoinColumns = @JoinColumn(name="recipe_id"))
-	private List<Recipe> recipes;
+	private String description;
+	@Column(name = "image_url")
+	private String imageURL;
+	@OneToMany(mappedBy = "ingredient")
+	private List<RecipeIngredient> recipeIngredients;
 
 	public Ingredient() {
 	}
@@ -51,36 +47,28 @@ public class Ingredient {
 		this.name = name;
 	}
 
-	public Double getQuantityAmount() {
-		return quantityAmount;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setQuantityAmount(Double quantityAmount) {
-		this.quantityAmount = quantityAmount;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getQuantityUnit() {
-		return quantityUnit;
+	public String getImageURL() {
+		return imageURL;
 	}
 
-	public void setQuantityUnit(String quantityUnit) {
-		this.quantityUnit = quantityUnit;
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
 	}
 
-	public String getNotes() {
-		return notes;
+	public List<RecipeIngredient> getRecipeIngredients() {
+		return recipeIngredients;
 	}
 
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
-	public List<Recipe> getRecipes() {
-		return recipes;
-	}
-
-	public void setRecipes(List<Recipe> recipes) {
-		this.recipes = recipes;
+	public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
+		this.recipeIngredients = recipeIngredients;
 	}
 
 	@Override
@@ -102,8 +90,8 @@ public class Ingredient {
 
 	@Override
 	public String toString() {
-		return "Ingredient [id=" + id + ", name=" + name + ", quantityAmount=" + quantityAmount + ", quantityUnit="
-				+ quantityUnit + ", notes=" + notes + "]";
+		return "Ingredient [id=" + id + ", name=" + name + ", description=" + description + ", imageURL=" + imageURL
+				+ "]";
 	}
 
 }

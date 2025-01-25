@@ -53,8 +53,8 @@ public class Recipe {
 	private List<Review> reviews;
 	@ManyToMany(mappedBy="recipes")
 	private List<Category> categories;
-	@ManyToMany(mappedBy="recipes")
-	private List<Ingredient> ingredients;
+	@OneToMany(mappedBy="recipe")
+	private List<RecipeIngredient> recipeIngredients;
 	
 	public Recipe() {
 	}
@@ -187,12 +187,12 @@ public class Recipe {
 		this.reviews = reviews;
 	}
 
-	public List<Ingredient> getIngredients() {
-		return ingredients;
+	public List<RecipeIngredient> getRecipeIngredients() {
+		return recipeIngredients;
 	}
 
-	public void setIngredients(List<Ingredient> ingredients) {
-		this.ingredients = ingredients;
+	public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
+		this.recipeIngredients = recipeIngredients;
 	}
 
 	@Override

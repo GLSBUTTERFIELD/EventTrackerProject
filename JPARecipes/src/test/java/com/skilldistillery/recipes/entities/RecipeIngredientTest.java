@@ -14,10 +14,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-class RecipeTest {
+class RecipeIngredientTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Recipe recipe;
+	private RecipeIngredient recipeIngredient;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,47 +32,32 @@ class RecipeTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		recipe = em.find(Recipe.class, 1);
+		recipeIngredient = em.find(RecipeIngredient.class, new RecipeIngredientId(1, 1));
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		recipe = null;
+		recipeIngredient = null;
 		em.close();
 	}
 
 	@Test
-	void test_Recipe_basic_mapping() {
-		assertNotNull(recipe);
-		assertEquals("Korean Beef Bowls", recipe.getTitle());
-		assertEquals(15, recipe.getPrepTime());
+	void test_RecipeIngredient_basic_mapping() {
+		assertNotNull(recipeIngredient);
+		assertEquals("cups", recipeIngredient.getQuantityUnit());
 	}
 	
 	@Test
-	void test_Recipe_FoodType_ManyToOne_mapping() {
-		assertNotNull(recipe);
-		assertEquals("Asian", recipe.getFoodType().getName());
+	void test_RecipeIngredient_Recipe_ManyToOne_mapping() {
+		assertNotNull(recipeIngredient);
+		assertNotNull(recipeIngredient.getRecipe());
+		assertEquals(15, recipeIngredient.getRecipe().getPrepTime());
+	}
+	@Test
+	void test_RecipeIngredient_Ingredient_ManyToOne_mapping() {
+		assertNotNull(recipeIngredient);
+		assertNotNull(recipeIngredient.getIngredient());
+		assertEquals(1, recipeIngredient.getIngredient().getId());
 	}
 	
-	@Test
-	void test_Recipe_Review_OneToMany_mapping() {
-		assertNotNull(recipe);
-		assertNotNull(recipe.getReviews());
-		assertTrue(recipe.getReviews().size() > 0);
-	}
-	
-	@Test
-	void test_Recipe_Category_ManyToMany_mapping() {
-		assertNotNull(recipe);
-		assertNotNull(recipe.getCategories());
-		assertTrue(recipe.getCategories().size() > 0 );
-	}
-
-	@Test
-	void test_Recipe_RecipeIngredient_OneToMany_mapping() {
-		assertNotNull(recipe);
-		assertNotNull(recipe.getRecipeIngredients());
-		assertTrue(recipe.getRecipeIngredients().size() > 0 );
-	}
-
 }

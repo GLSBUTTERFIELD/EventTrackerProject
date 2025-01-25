@@ -106,9 +106,8 @@ DROP TABLE IF EXISTS `ingredient` ;
 CREATE TABLE IF NOT EXISTS `ingredient` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
-  `quantity_amount` DOUBLE NULL,
-  `quantity_unit` VARCHAR(45) NULL,
-  `notes` VARCHAR(45) NULL,
+  `description` VARCHAR(500) NULL,
+  `image_url` VARCHAR(2000) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -121,6 +120,9 @@ DROP TABLE IF EXISTS `recipe_ingredient` ;
 CREATE TABLE IF NOT EXISTS `recipe_ingredient` (
   `recipe_id` INT NOT NULL,
   `ingredient_id` INT NOT NULL,
+  `quantity_amount` DOUBLE NULL,
+  `quantity_unit` VARCHAR(45) NULL,
+  `notes` VARCHAR(100) NULL,
   PRIMARY KEY (`recipe_id`, `ingredient_id`),
   INDEX `fk_recipe_has_ingredient_ingredient1_idx` (`ingredient_id` ASC) VISIBLE,
   INDEX `fk_recipe_has_ingredient_recipe_idx` (`recipe_id` ASC) VISIBLE,
@@ -228,8 +230,15 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `recipesdb`;
-INSERT INTO `ingredient` (`id`, `name`, `quantity_amount`, `quantity_unit`, `notes`) VALUES (1, 'White rice', NULL, NULL, '~20-25 minutes to cook');
-INSERT INTO `ingredient` (`id`, `name`, `quantity_amount`, `quantity_unit`, `notes`) VALUES (2, 'Ground beef', 1, 'lb', NULL);
+INSERT INTO `ingredient` (`id`, `name`, `description`, `image_url`) VALUES (1, 'White rice', NULL, NULL);
+INSERT INTO `ingredient` (`id`, `name`, `description`, `image_url`) VALUES (2, 'Ground beef', NULL, NULL);
+INSERT INTO `ingredient` (`id`, `name`, `description`, `image_url`) VALUES (3, 'Garlic', NULL, NULL);
+INSERT INTO `ingredient` (`id`, `name`, `description`, `image_url`) VALUES (4, 'Soy sauce', NULL, NULL);
+INSERT INTO `ingredient` (`id`, `name`, `description`, `image_url`) VALUES (5, 'Grated ginger', NULL, NULL);
+INSERT INTO `ingredient` (`id`, `name`, `description`, `image_url`) VALUES (6, 'Green onions', NULL, NULL);
+INSERT INTO `ingredient` (`id`, `name`, `description`, `image_url`) VALUES (7, 'Salt and pepper', NULL, NULL);
+INSERT INTO `ingredient` (`id`, `name`, `description`, `image_url`) VALUES (8, 'Oil', NULL, NULL);
+INSERT INTO `ingredient` (`id`, `name`, `description`, `image_url`) VALUES (9, 'Red pepper flakes', NULL, NULL);
 
 COMMIT;
 
@@ -239,8 +248,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `recipesdb`;
-INSERT INTO `recipe_ingredient` (`recipe_id`, `ingredient_id`) VALUES (1, 1);
-INSERT INTO `recipe_ingredient` (`recipe_id`, `ingredient_id`) VALUES (1, 2);
+INSERT INTO `recipe_ingredient` (`recipe_id`, `ingredient_id`, `quantity_amount`, `quantity_unit`, `notes`) VALUES (1, 1, 2, 'cups', '20-25 minutes cook time');
+INSERT INTO `recipe_ingredient` (`recipe_id`, `ingredient_id`, `quantity_amount`, `quantity_unit`, `notes`) VALUES (1, 2, 1, 'lb', NULL);
+INSERT INTO `recipe_ingredient` (`recipe_id`, `ingredient_id`, `quantity_amount`, `quantity_unit`, `notes`) VALUES (1, 3, 3, 'cloves, minced', NULL);
+INSERT INTO `recipe_ingredient` (`recipe_id`, `ingredient_id`, `quantity_amount`, `quantity_unit`, `notes`) VALUES (1, 4, 2, 'tbsp', NULL);
 
 COMMIT;
 
