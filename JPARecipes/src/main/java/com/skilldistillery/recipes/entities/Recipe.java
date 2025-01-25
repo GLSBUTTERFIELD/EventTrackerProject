@@ -7,6 +7,8 @@ import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,6 +48,7 @@ public class Recipe {
 	@ManyToOne
 	@JoinColumn(name="food_type_id")
 	private FoodType foodType;
+	@JsonIgnore
 	@OneToMany(mappedBy="recipe")
 	private List<Review> reviews;
 	@ManyToMany(mappedBy="recipes")

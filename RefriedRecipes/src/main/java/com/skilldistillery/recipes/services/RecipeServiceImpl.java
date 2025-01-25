@@ -1,6 +1,7 @@
 package com.skilldistillery.recipes.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,14 +21,23 @@ private RecipeRepository recipeRepo;
 
 	@Override
 	public Recipe findById(int recipeId) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Recipe> recipeOpt = recipeRepo.findById(recipeId);
+		Recipe foundRecipe = null;
+		if(recipeOpt.isPresent()) {
+			foundRecipe = recipeOpt.get();
+		}
+		return foundRecipe;
 	}
 
 	@Override
 	public Recipe create(Recipe newRecipe) {
-		// TODO Auto-generated method stub
-		return null;
+		Recipe created = null;
+		try {
+			created = recipeRepo.saveAndFlush(newRecipe);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return created;
 	}
 
 	@Override

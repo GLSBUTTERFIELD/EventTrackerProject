@@ -3,6 +3,8 @@ package com.skilldistillery.recipes.entities;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class Ingredient {
 	@Column(name = "quantity_unit")
 	private String quantityUnit;
 	private String notes;
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name="recipe_ingredient", joinColumns = @JoinColumn(name="ingredient_id"), 
 				inverseJoinColumns = @JoinColumn(name="recipe_id"))
