@@ -3,9 +3,11 @@ package com.skilldistillery.recipes.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +40,7 @@ public class RecipeController {
 			}
 		} catch (Exception e) {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+			foundRecipe = null;
 			e.printStackTrace();
 		}
 		return foundRecipe;
@@ -55,9 +58,42 @@ public class RecipeController {
 			}
 		} catch (Exception e) {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);// 400
+			recipe = null;
 			e.printStackTrace();
 		}
 		return recipe;
 	}
 
+	@PutMapping("recipes/{recipeId}")
+	public Recipe updateRecipe(@PathVariable("recipeId") int recipeId, @RequestBody Recipe recipe,
+			HttpServletResponse resp) {
+		try {
+			recipeService.update(recipe, recipeId);
+			if (recipe == null) {
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+			} else {
+				resp.setStatus(HttpServletResponse.SC_OK); // 200
+			}
+		} catch (Exception e) {
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+			recipe = null;
+			e.printStackTrace();
+		}
+		return recipe;
+	}
+
+	@DeleteMapping("recipes/{recipeId}")
+	public void deleteRecipe(@PathVariable("recipeId") int recipeId, HttpServletResponse resp) {
+		try {
+			if (recipeService.delete(recipeId)) {
+				resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+			}
+			else {
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+			}
+		} catch (Exception e) {
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+			e.printStackTrace();
+		}
+	}
 }

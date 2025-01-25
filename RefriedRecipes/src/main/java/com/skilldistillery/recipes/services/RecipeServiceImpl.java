@@ -6,24 +6,25 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.recipes.entities.FoodType;
 import com.skilldistillery.recipes.entities.Recipe;
 import com.skilldistillery.recipes.repositories.RecipeRepository;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
-@Autowired
-private RecipeRepository recipeRepo;
-	
+	@Autowired
+	private RecipeRepository recipeRepo;
+
 	@Override
 	public List<Recipe> findAll() {
-		return recipeRepo.findAll();
+		return recipeRepo.findByEnabledTrue();
 	}
 
 	@Override
 	public Recipe findById(int recipeId) {
 		Optional<Recipe> recipeOpt = recipeRepo.findById(recipeId);
 		Recipe foundRecipe = null;
-		if(recipeOpt.isPresent()) {
+		if (recipeOpt.isPresent()) {
 			foundRecipe = recipeOpt.get();
 		}
 		return foundRecipe;
@@ -33,7 +34,9 @@ private RecipeRepository recipeRepo;
 	public Recipe create(Recipe newRecipe) {
 		Recipe created = null;
 		try {
-			created = recipeRepo.saveAndFlush(newRecipe);
+			created = newRecipe;
+			created.setEnabled(true);
+			recipeRepo.saveAndFlush(created);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -42,14 +45,46 @@ private RecipeRepository recipeRepo;
 
 	@Override
 	public Recipe update(Recipe updatedRecipe, int recipeId) {
-		// TODO Auto-generated method stub
-		return null;
+		Recipe recipeToUpdate = null;
+		try {
+			Optional<Recipe> recipeOpt = recipeRepo.findById(recipeId);
+			if (recipeOpt.isPresent()) {
+				recipeToUpdate = recipeOpt.get();
+				recipeToUpdate.setCategories(updatedRecipe.getCategories());
+				recipeToUpdate.setCookTime(updatedRecipe.getCookTime());
+				recipeToUpdate.setDescription(updatedRecipe.getDescription());
+				recipeToUpdate.setDirections(updatedRecipe.getDirections());
+				recipeToUpdate.setEnabled(true);
+				recipeToUpdate.setFoodType(updatedRecipe.getFoodType());
+				if (recipeToUpdate.getFoodType() == null) {
+					FoodType foodType = new FoodType();
+					foodType.setId(1);
+					recipeToUpdate.setFoodType(foodType);
+				}
+				recipeToUpdate.setImageURL(updatedRecipe.getImageURL());
+				recipeToUpdate.setPrepTime(updatedRecipe.getPrepTime());
+				recipeToUpdate.setRecipeIngredients(updatedRecipe.getRecipeIngredients());
+				recipeToUpdate.setReviews(updatedRecipe.getReviews());
+				recipeToUpdate.setServings(updatedRecipe.getServings());
+				recipeToUpdate.setTitle(updatedRecipe.getTitle());
+				recipeToUpdate.setWebsiteURL(updatedRecipe.getWebsiteURL());
+				recipeRepo.saveAndFlush(recipeToUpdate);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return recipeToUpdate;
 	}
 
 	@Override
 	public boolean delete(int recipeId) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean deleted = false;
+		Optional <Recipe> recipeOpt = recipeRepo.findById(recipeId);
+		if (recipeOpt.isPresent()) {
+			recipeRepo.deleteById(recipeId);
+			deleted = true;
+		}
+		return deleted;
 	}
 
 }

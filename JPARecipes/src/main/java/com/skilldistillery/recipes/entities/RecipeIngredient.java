@@ -2,6 +2,9 @@ package com.skilldistillery.recipes.entities;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -21,12 +24,12 @@ public class RecipeIngredient {
 	@Column(name = "quantity_unit")
 	private String quantityUnit;
 	private String notes;
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="recipe_id")
 	@MapsId(value = "recipeId")
 	private Recipe recipe;
-	
+	@JsonIgnoreProperties({"recipeIngredients"})
 	@ManyToOne
 	@JoinColumn(name="ingredient_id")
 	@MapsId(value="ingredientId")
