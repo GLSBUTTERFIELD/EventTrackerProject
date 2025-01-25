@@ -1,6 +1,10 @@
 package com.skilldistillery.recipes.entities;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,13 +18,27 @@ public class Recipe {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
 	private String title;
 	private String description;
-	@Column(name="prep_time")
+	private Integer servings;
+	@Column(name="prep_time_minutes")
 	private int prepTime;
-	@Column(name="cook_time")
+	@Column(name="cook_time_minutes")
 	private int cookTime;
+	private String directions;
+	private String source;
+	@Column(name="website_url")
+	private String websiteURL;
+	@Column(name="image_url")
+	private String imageURL;
+	@Column(name="create_date")
+	@CreationTimestamp
+	private LocalDateTime createDate;
+	@Column(name="last_update")
+	@UpdateTimestamp
+	private LocalDateTime lastUpdate;
+	private Boolean enabled;
+	
 	
 	public Recipe() {
 	}
@@ -65,6 +83,70 @@ public class Recipe {
 		this.cookTime = cookTime;
 	}
 
+	public Integer getServings() {
+		return servings;
+	}
+
+	public void setServings(Integer servings) {
+		this.servings = servings;
+	}
+
+	public String getDirections() {
+		return directions;
+	}
+
+	public void setDirections(String directions) {
+		this.directions = directions;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getWebsiteURL() {
+		return websiteURL;
+	}
+
+	public void setWebsiteURL(String websiteURL) {
+		this.websiteURL = websiteURL;
+	}
+
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
+	public LocalDateTime getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
+	}
+
+	public LocalDateTime getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(LocalDateTime lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -82,13 +164,12 @@ public class Recipe {
 		return id == other.id;
 	}
 
-	public Recipe(int id, String title, String description, int prepTime, int cookTime) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.description = description;
-		this.prepTime = prepTime;
-		this.cookTime = cookTime;
+	@Override
+	public String toString() {
+		return "Recipe [id=" + id + ", title=" + title + ", description=" + description + ", servings=" + servings
+				+ ", prepTime=" + prepTime + ", cookTime=" + cookTime + ", directions=" + directions + ", source="
+				+ source + ", websiteURL=" + websiteURL + ", imageURL=" + imageURL + ", createDate=" + createDate
+				+ ", lastUpdate=" + lastUpdate + ", enabled=" + enabled + "]";
 	}
 	
 	

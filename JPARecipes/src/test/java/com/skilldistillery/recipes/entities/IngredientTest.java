@@ -14,10 +14,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-class RecipeTest {
+class IngredientTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Ingredient ingredient;
+	private Recipe recipe;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,20 +32,20 @@ class RecipeTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		ingredient = em.find(Ingredient.class, 1);
+		recipe = em.find(Recipe.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		ingredient = null;
+		recipe = null;
 		em.close();
 	}
 
 	@Test
-	void test_Ingredient_basic_mapping() {
-		assertNotNull(ingredient);
-		assertEquals("White rice", ingredient.getName());
-		assertNotNull(ingredient.getNotes());
+	void test_Recipe_basic_mapping() {
+		assertNotNull(recipe);
+		assertEquals("Korean Beef Bowls", recipe.getTitle());
+		assertEquals(15, recipe.getPrepTime());
 	}
 
 }
