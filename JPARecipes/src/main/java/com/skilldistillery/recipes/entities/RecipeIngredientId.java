@@ -13,8 +13,8 @@ public class RecipeIngredientId implements Serializable {
 	private int recipeId;
 	@Column(name = "ingredient_id")
 	private int ingredientId;
+	
 	public RecipeIngredientId() {
-		super();
 	}
 	public RecipeIngredientId(int recipeId, int ingredientId) {
 		super();

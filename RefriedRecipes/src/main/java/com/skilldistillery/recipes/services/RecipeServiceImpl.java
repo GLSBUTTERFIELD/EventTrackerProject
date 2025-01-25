@@ -79,9 +79,11 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public boolean delete(int recipeId) {
 		boolean deleted = false;
-		Optional <Recipe> recipeOpt = recipeRepo.findById(recipeId);
+		Optional<Recipe> recipeOpt = recipeRepo.findById(recipeId);
 		if (recipeOpt.isPresent()) {
-			recipeRepo.deleteById(recipeId);
+			Recipe recipe = recipeOpt.get();
+			recipe.setEnabled(false);
+			recipeRepo.saveAndFlush(recipe);
 			deleted = true;
 		}
 		return deleted;

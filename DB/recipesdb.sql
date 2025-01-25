@@ -194,6 +194,7 @@ COMMIT;
 START TRANSACTION;
 USE `recipesdb`;
 INSERT INTO `recipe` (`id`, `food_type_id`, `title`, `description`, `servings`, `prep_time_minutes`, `cook_time_minutes`, `directions`, `source`, `website_url`, `image_url`, `create_date`, `last_update`, `enabled`) VALUES (1, 1, 'Korean Beef Bowls', 'kbb description', 2, 15, 30, 'kbb directions', NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `recipe` (`id`, `food_type_id`, `title`, `description`, `servings`, `prep_time_minutes`, `cook_time_minutes`, `directions`, `source`, `website_url`, `image_url`, `create_date`, `last_update`, `enabled`) VALUES (2, 1, 'Sushi Bake', 'sushi bake description', 4, 15, 45, 'sushi bake directions', NULL, NULL, NULL, NULL, NULL, 1);
 
 COMMIT;
 
@@ -252,6 +253,7 @@ INSERT INTO `recipe_ingredient` (`recipe_id`, `ingredient_id`, `quantity_amount`
 INSERT INTO `recipe_ingredient` (`recipe_id`, `ingredient_id`, `quantity_amount`, `quantity_unit`, `notes`) VALUES (1, 2, 1, 'lb', NULL);
 INSERT INTO `recipe_ingredient` (`recipe_id`, `ingredient_id`, `quantity_amount`, `quantity_unit`, `notes`) VALUES (1, 3, 3, 'cloves, minced', NULL);
 INSERT INTO `recipe_ingredient` (`recipe_id`, `ingredient_id`, `quantity_amount`, `quantity_unit`, `notes`) VALUES (1, 4, 2, 'tbsp', NULL);
+INSERT INTO `recipe_ingredient` (`recipe_id`, `ingredient_id`, `quantity_amount`, `quantity_unit`, `notes`) VALUES (2, 1, 2, 'cups', NULL);
 
 COMMIT;
 
@@ -262,6 +264,7 @@ COMMIT;
 START TRANSACTION;
 USE `recipesdb`;
 INSERT INTO `recipe_category` (`recipe_id`, `category_id`) VALUES (1, 3);
+INSERT INTO `recipe_category` (`recipe_id`, `category_id`) VALUES (2, 3);
 
 COMMIT;
 
