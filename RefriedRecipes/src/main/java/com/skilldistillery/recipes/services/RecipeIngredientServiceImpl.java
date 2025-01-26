@@ -43,7 +43,11 @@ public class RecipeIngredientServiceImpl implements RecipeIngredientService {
 	
 	@Override
 	public RecipeIngredient update(RecipeIngredient ingredient, int recipeId, int ingredientId) {
-
+		RecipeIngredient recipeIngredient = recipeIngredientRepo.findByRecipeIdAndIngredientId(recipeId, ingredientId);
+		recipeIngredient.setQuantityAmount(ingredient.getQuantityAmount());
+		recipeIngredient.setQuantityUnit(ingredient.getQuantityUnit());
+		recipeIngredient.setNotes(ingredient.getNotes());
+		recipeIngredientRepo.saveAndFlush(recipeIngredient);
 		return null;
 	}
 
