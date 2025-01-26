@@ -10,5 +10,6 @@ public interface ReviewService {
 	Review showOne(int reviewId);
 	Review create (Review review);
 	Review update(Review review, int reviewId);
+	boolean disable(int reviewId);
 	
 }

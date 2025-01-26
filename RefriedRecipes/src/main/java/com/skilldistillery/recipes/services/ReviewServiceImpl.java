@@ -1,6 +1,7 @@
 package com.skilldistillery.recipes.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,15 @@ public class ReviewServiceImpl implements ReviewService {
 		return updatedReview;
 	}
 
-
+	@Override
+	public boolean disable(int reviewId) {
+		boolean disabled = false;
+		Optional <Review> reviewOpt = reviewRepo.findById(reviewId);
+		if(reviewOpt.isPresent()) {
+			reviewRepo.deleteById(reviewId);
+			disabled = true;
+		}
+		return disabled;
+	}
 
 }
