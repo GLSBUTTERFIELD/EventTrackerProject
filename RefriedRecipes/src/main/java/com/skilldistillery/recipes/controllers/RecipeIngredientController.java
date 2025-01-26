@@ -64,7 +64,7 @@ public class RecipeIngredientController {
 		return recipeIngredient;
 	}
 
-	@DeleteMapping("recipes/{recipeId}/ingredients{ingredientId}")
+	@DeleteMapping("recipes/{recipeId}/ingredients/{ingredientId}")
 	public void removeRecipeIngredient(@PathVariable("recipeId") int recipeId,
 			@PathVariable("ingredientId") int ingredientId, HttpServletResponse resp) {
 		try {

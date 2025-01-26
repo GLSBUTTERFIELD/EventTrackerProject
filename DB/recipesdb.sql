@@ -108,7 +108,8 @@ CREATE TABLE IF NOT EXISTS `ingredient` (
   `name` VARCHAR(150) NOT NULL,
   `description` VARCHAR(500) NULL,
   `image_url` VARCHAR(2000) NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 

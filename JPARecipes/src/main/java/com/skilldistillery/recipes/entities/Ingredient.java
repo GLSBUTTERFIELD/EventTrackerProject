@@ -25,6 +25,7 @@ public class Ingredient {
 	private String description;
 	@Column(name = "image_url")
 	private String imageURL;
+	@JsonIgnore
 	@OneToMany(mappedBy = "ingredient")
 	private List<RecipeIngredient> recipeIngredients;
 
