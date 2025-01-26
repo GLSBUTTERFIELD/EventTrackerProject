@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.recipes.entities.Recipe;
+import com.skilldistillery.recipes.entities.Review;
 import com.skilldistillery.recipes.services.RecipeService;
+import com.skilldistillery.recipes.services.ReviewService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,6 +26,9 @@ public class RecipeController {
 
 	@Autowired
 	private RecipeService recipeService;
+
+	@Autowired
+	private ReviewService reviewService;
 
 	@GetMapping(path = { "recipes/", "recipes" })
 	public List<Recipe> findAll() {
@@ -44,6 +49,27 @@ public class RecipeController {
 			e.printStackTrace();
 		}
 		return foundRecipe;
+	}
+
+	@GetMapping("recipes/{recipeId}/reviews")
+	public List<Review> showReviewsByRecipe(@PathVariable("recipeId") int recipeId, HttpServletResponse resp) {
+		Recipe recipe = recipeService.findById(recipeId);
+		List<Review> reviews = null;
+		if (recipe != null) {
+			try {
+				reviews = reviewService.findByRecipeId(recipeId);
+				
+			} catch (Exception e) {
+				resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+				reviews = null;
+				e.printStackTrace();
+			}
+		}
+		else {
+			resp.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+			reviews = null;
+		}
+		return reviews;
 	}
 
 	@PostMapping("recipes")
@@ -81,15 +107,14 @@ public class RecipeController {
 		}
 		return recipe;
 	}
-
+	
 	@DeleteMapping("recipes/{recipeId}")
 	public void deleteRecipe(@PathVariable("recipeId") int recipeId, HttpServletResponse resp) {
 		try {
 			if (recipeService.delete(recipeId)) {
 				resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
-			}
-			else {
-				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+			} else {
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
 			}
 		} catch (Exception e) {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
