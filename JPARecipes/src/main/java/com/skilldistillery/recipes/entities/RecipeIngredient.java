@@ -20,7 +20,7 @@ public class RecipeIngredient {
 	@EmbeddedId
 	private RecipeIngredientId id;
 	@Column(name = "quantity_amount")
-	private Double quantityAmount;
+	private String quantityAmount;
 	@Column(name = "quantity_unit")
 	private String quantityUnit;
 	private String notes;
@@ -46,11 +46,11 @@ public class RecipeIngredient {
 		this.id = id;
 	}
 
-	public Double getQuantityAmount() {
+	public String getQuantityAmount() {
 		return quantityAmount;
 	}
 
-	public void setQuantityAmount(Double quantityAmount) {
+	public void setQuantityAmount(String quantityAmount) {
 		this.quantityAmount = quantityAmount;
 	}
 

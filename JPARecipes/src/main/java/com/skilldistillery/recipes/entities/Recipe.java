@@ -27,7 +27,7 @@ public class Recipe {
 	private int id;
 	private String title;
 	private String description;
-	private Integer servings;
+	private String servings;
 	@Column(name="prep_time_minutes")
 	private int prepTime;
 	@Column(name="cook_time_minutes")
@@ -99,11 +99,11 @@ public class Recipe {
 		this.cookTime = cookTime;
 	}
 
-	public Integer getServings() {
+	public String getServings() {
 		return servings;
 	}
 
-	public void setServings(Integer servings) {
+	public void setServings(String servings) {
 		this.servings = servings;
 	}
 
