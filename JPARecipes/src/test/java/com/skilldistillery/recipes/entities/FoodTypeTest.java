@@ -44,11 +44,12 @@ class FoodTypeTest {
 	@Test
 	void test_FoodType_basic_mapping() {
 		assertNotNull(foodType);
-		assertEquals("Asian", foodType.getName());
+		assertEquals("Other", foodType.getName());
 	}
 	
 	@Test 
 	void test_FoodType_Recipe_OneToMany_mapping() {
+		foodType = em.find(FoodType.class, 2);
 		assertNotNull(foodType);
 		assertNotNull(foodType.getRecipes());
 		assertTrue(foodType.getRecipes().size() > 0);

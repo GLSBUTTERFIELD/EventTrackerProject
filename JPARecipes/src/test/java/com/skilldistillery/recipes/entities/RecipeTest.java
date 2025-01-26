@@ -51,7 +51,7 @@ class RecipeTest {
 	@Test
 	void test_Recipe_FoodType_ManyToOne_mapping() {
 		assertNotNull(recipe);
-		assertEquals("Asian", recipe.getFoodType().getName());
+		assertEquals("Korean", recipe.getFoodType().getName());
 	}
 	
 	@Test

@@ -179,9 +179,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `recipesdb`;
-INSERT INTO `food_type` (`id`, `name`) VALUES (1, 'Asian');
-INSERT INTO `food_type` (`id`, `name`) VALUES (2, 'Mexican');
-INSERT INTO `food_type` (`id`, `name`) VALUES (3, 'Pasta');
+INSERT INTO `food_type` (`id`, `name`) VALUES (1, 'Other');
+INSERT INTO `food_type` (`id`, `name`) VALUES (2, 'Korean');
+INSERT INTO `food_type` (`id`, `name`) VALUES (3, 'Japanese');
 INSERT INTO `food_type` (`id`, `name`) VALUES (4, 'Italian');
 INSERT INTO `food_type` (`id`, `name`) VALUES (5, 'Indian');
 INSERT INTO `food_type` (`id`, `name`) VALUES (6, 'American');
@@ -194,8 +194,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `recipesdb`;
-INSERT INTO `recipe` (`id`, `food_type_id`, `title`, `description`, `servings`, `prep_time_minutes`, `cook_time_minutes`, `directions`, `source`, `website_url`, `image_url`, `create_date`, `last_update`, `enabled`) VALUES (1, 1, 'Korean Beef Bowls', 'kbb description', 2, 15, 30, 'kbb directions', NULL, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `recipe` (`id`, `food_type_id`, `title`, `description`, `servings`, `prep_time_minutes`, `cook_time_minutes`, `directions`, `source`, `website_url`, `image_url`, `create_date`, `last_update`, `enabled`) VALUES (2, 1, 'Sushi Bake', 'sushi bake description', 4, 15, 45, 'sushi bake directions', NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `recipe` (`id`, `food_type_id`, `title`, `description`, `servings`, `prep_time_minutes`, `cook_time_minutes`, `directions`, `source`, `website_url`, `image_url`, `create_date`, `last_update`, `enabled`) VALUES (1, 2, 'Korean Beef Bowls', 'kbb description', 2, 15, 30, 'kbb directions', NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `recipe` (`id`, `food_type_id`, `title`, `description`, `servings`, `prep_time_minutes`, `cook_time_minutes`, `directions`, `source`, `website_url`, `image_url`, `create_date`, `last_update`, `enabled`) VALUES (2, 3, 'Sushi Bake', 'sushi bake description', 4, 15, 45, 'sushi bake directions', NULL, NULL, NULL, NULL, NULL, 1);
 
 COMMIT;
 

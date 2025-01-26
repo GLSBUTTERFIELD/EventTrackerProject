@@ -9,42 +9,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.recipes.entities.Category;
-import com.skilldistillery.recipes.services.CategoryService;
+import com.skilldistillery.recipes.entities.FoodType;
+import com.skilldistillery.recipes.services.FoodTypeService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RequestMapping("api/recipes")
 @RestController
-public class CategoryController {
+public class FoodTypeController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private FoodTypeService foodTypeService;
 
-	@GetMapping({ "categories", "categories/" })
-	public List<Category> findAll() {
-		return categoryService.seeAll();
+	@GetMapping({ "foodtypes", "foodtypes/" })
+	public List<FoodType> showAll() {
+		return foodTypeService.showAll();
 	}
 
-	@PostMapping("categories")
-	public Category create(@RequestBody Category category, HttpServletResponse resp, HttpServletRequest req) {
-		category = categoryService.create(category);
+	@PostMapping("foodtypes")
+	public FoodType addNewFoodType(@RequestBody FoodType foodType, HttpServletResponse resp, HttpServletRequest req) {
 		try {
-			if (category == null) {
+			foodType = foodTypeService.create(foodType);
+			if (foodType == null) {
 				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
 			} else {
 				resp.setStatus(HttpServletResponse.SC_CREATED); // 201
-				resp.setHeader("Location", req.getRequestURL().append("/").append(category.getId()).toString());
+				resp.setHeader("Location", req.getRequestURL().append("/").append(foodType.getId()).toString());
 			}
 		} catch (Exception e) {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
-			category = null;
+			foodType = null;
 			e.printStackTrace();
 		}
-		return category;
+		return foodType;
 	}
-
-
 
 }
