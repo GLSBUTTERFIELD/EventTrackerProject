@@ -15,6 +15,7 @@ Users have full or partial Create, Read, Update, and Delete (CRUD) functionality
 	<li><em>reviews:</em> remarks, difficulty level, rating, and notes for the future of each record of making a recipe.
 </ul>
 Below are the current URL routes tested through postman:
+<h3>Recipes</h3>
 <table class="table table-bordered">
 	<thead>
 		<td><strong>Route</strong></td>
@@ -30,10 +31,6 @@ Below are the current URL routes tested through postman:
 			<td>Gets one recipe by id</td>
 		</tr>
 		<tr>
-			<td>GET api/recipes/{recipeId}/reviews</td>
-			<td>Gets all reviews for one recipe by id</td>	
-		</tr>
-		<tr>
 			<td>POST api/recipes</td>
 			<td>Creates a new recipe</td>
 		</tr>
@@ -45,7 +42,17 @@ Below are the current URL routes tested through postman:
 			<td>DELETE api/recipes/{recipeId}</td>
 			<td>Deletes an existing recipe by id</td>
 		</tr>
-		<tr>
+	</tbody>
+</table>
+
+<h3>Categories</h3>
+<table class="table table-bordered">
+	<thead>
+		<td><strong>Route</strong></td>
+		<td><strong>Functionality</strong></td>
+	</thead>
+	<tbody>	
+	<tr>
 			<td>GET api/recipes/categories (or api/recipes/categories/)</td>
 			<td>Gets all categories</td>
 		</tr>
@@ -53,6 +60,16 @@ Below are the current URL routes tested through postman:
 			<td>POST api/recipes/categories</td>
 			<td>Creates a new category</td>
 		</tr>
+	</tbody>
+</table>	
+
+<h3>Food Types</h3>
+<table class="table table-bordered">
+	<thead>
+		<td><strong>Route</strong></td>
+		<td><strong>Functionality</strong></td>
+	</thead>
+	<tbody>	
 		<tr>
 			<td>GET api/recipes/foodtypes (or api/recipes/foodtypes/)</td>
 			<td>Gets all food types</td>
@@ -61,6 +78,16 @@ Below are the current URL routes tested through postman:
 			<td>POST api/recipes/foodtypes</td>
 			<td>Creates a new foodtype</td>
 		</tr>
+	</tbody>
+</table>
+
+<h3>Ingredients</h3>
+<table class="table table-bordered">
+	<thead>
+		<td><strong>Route</strong></td>
+		<td><strong>Functionality</strong></td>
+	</thead>
+	<tbody>	
 		<tr>
 			<td>GET api/ingredients (or api/ingredients/)</td>
 			<td>Gets all ingredients</td>
@@ -81,6 +108,16 @@ Below are the current URL routes tested through postman:
 			<td>PUT api/ingredients/{ingredientId}</td>
 			<td>Replaces an existing ingredient by id</td>
 		</tr>
+	</tbody>
+</table>
+
+<h3>Recipe Ingredients</h3>
+<table class="table table-bordered">
+	<thead>
+		<td><strong>Route</strong></td>
+		<td><strong>Functionality</strong></td>
+	</thead>
+	<tbody>	
 		<tr>
 			<td>GET api/recipes/{recipeId}/ingredients</td>
 			<td>Gets all recipe ingredients by recipe id</td>
@@ -97,9 +134,23 @@ Below are the current URL routes tested through postman:
 			<td>DELETE api/recipes/{recipeId}/ingredients/{ingredientId}</td>
 			<td>Deletes an existing recipe by recipe id and ingredient id</td>
 		</tr>
+	</tbody>
+</table>
+
+<h3>Reviews</h3>
+<table class="table table-bordered">
+	<thead>
+		<td><strong>Route</strong></td>
+		<td><strong>Functionality</strong></td>
+	</thead>
+	<tbody>	
 		<tr>
 			<td>GET api/recipes/reviews</td>
 			<td>Gets all reviews</td>
+		</tr>
+		<tr>
+			<td>GET api/recipes/{recipeId}/reviews</td>
+			<td>Gets all reviews for one recipe by recipe id</td>	
 		</tr>
 		<tr>
 			<td>GET api/recipes/{recipeId}/reviews/{reviewId}</td>
@@ -117,9 +168,6 @@ Below are the current URL routes tested through postman:
 			<td>DELETE api/recipes/{recipeId}/reviews/{reviewId}</td>
 			<td>Deletes an existing review by review id and recipe id</td>
 		</tr>
-
-
-
 	</tbody>
 </table>
 
