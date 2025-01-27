@@ -1,5 +1,6 @@
 package com.skilldistillery.recipes.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,11 +52,11 @@ public class RecipeController {
 		return foundRecipe;
 	}
 
-	@GetMapping("recipes/search/{keyword}")
-	public List<Recipe> searchByKeyword(@PathVariable("keyword") String keyword, HttpServletResponse resp) {
+	@GetMapping("recipes/search/{searchword}")
+	public List<Recipe> searchByKeyword(@PathVariable("searchword") String searchword, HttpServletResponse resp) {
 		List<Recipe> recipes = null;
 		try {
-			recipes = recipeService.findByTitleOrDescriptionKeyword(keyword);
+			recipes = recipeService.findByTitleOrDescriptionKeyword(searchword);
 			if (recipes == null) {
 				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
 			}
@@ -90,7 +91,7 @@ public class RecipeController {
 		try {
 			recipes = recipeService.findByFoodTypeId(foodTypeId);
 			if (recipes == null) {
-				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
 			}
 		} catch (Exception e) {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
@@ -118,6 +119,55 @@ public class RecipeController {
 			reviews = null;
 		}
 		return reviews;
+	}
+
+//working but showing 200 OK for reviews without ratings
+	@GetMapping("recipes/search/reviews/greater/{rating}")
+	public List<Recipe> showRecipesByReviewRatingGreaterThanEqualTo(@PathVariable("rating") double rating, HttpServletResponse resp) {
+		List<Recipe> recipes = null;
+		try {
+			recipes = recipeService.findByReviewRatingGreaterThanOrEqualTo(rating);
+			if (recipes == null) {
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+			}
+		} catch (Exception e) {
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+			e.printStackTrace();
+		}
+		return recipes;
+	}
+	
+//working but showing 200 OK for difficulty levels that don't exist
+	@GetMapping("recipes/search/reviews/difficulty/{keyword}")
+	public List<Recipe> showRecipesByReviewDifficulty(@PathVariable("keyword") String keyword, HttpServletResponse resp) {
+		List<Recipe> recipes = null;
+		try {
+			recipes = recipeService.findByReviewDifficultyLevel(keyword);
+			if (recipes == null) {
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+			}
+		} catch (Exception e) {
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+			e.printStackTrace();
+		}
+		return recipes;
+	}
+	
+//working but showing 200 OK for difficulty levels that don't exist
+	@GetMapping("recipes/search/reviews/datecooked/{startDate}/{endDate}")
+	public List<Recipe> showRecipesByReviewDateCookedRange(@PathVariable("startDate") LocalDate startDate, 
+			@PathVariable("endDate") LocalDate endDate, HttpServletResponse resp) {
+		List<Recipe> recipes = null;
+		try {
+			recipes = recipeService.findByReviewDatesCooked(startDate, endDate);
+			if (recipes == null) {
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+			}
+		} catch (Exception e) {
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+			e.printStackTrace();
+		}
+		return recipes;
 	}
 
 	@PostMapping("recipes")

@@ -1,6 +1,6 @@
 # EventTrackerProject
 ### Overview
-Refried Recipes is a RESTful web service designed to capture recipes and recipe reviews. Users can add recipes they've made or would like to try, then log a review with ratings and notes after they've created and tasted the recipe. The site provides access to recipes in user-friendly ways like searching by ingredient, food type, rating, total time to cook, amount of reviews, etc. Eventually, this data could be used to learn more about one's cooking and eating habits (for example, what kind of meals do I cook most during the week, how many weeks did I cook meat in the past 3 months, etc.) and provide knowledge and motivation for future food decisions.
+Refried Recipes is a RESTful web service designed to capture recipes and recipe reviews. Users can add recipes they've made or would like to try, then log a review with ratings and notes after they've created and tasted the recipe. The site provides access to recipes in user-friendly ways like searching by ingredient, food type, rating, date(s) cooked, etc. Eventually, this data could be used to learn more about one's cooking and eating habits (for example, what kind of meals do I cook most during the week, how many weeks did I cook meat in the past 3 months, etc.) and provide knowledge and motivation for future food decisions.
 
 ### Description
 Users have full or partial Create, Read, Update, and Delete (CRUD) functionality on the following entities:
@@ -27,6 +27,30 @@ The following URL routes have been successfully tested on Postman:
 		<tr>
 			<td>GET api/recipes/{recipeId}</td>
 			<td>Gets one recipe by id</td>
+		</tr>
+		<tr>
+			<td>GET api/recipes/search/{searchword}</td>
+			<td>Gets all recipes containing the searchword in its title or description</td>
+		</tr>
+		<tr>
+			<td>GET api/recipes/search/categories/{categoryId}</td>
+			<td>Gets all recipes for one category by category id</td>
+		</tr>
+		<tr>
+			<td>GET api/recipes/search/foodtypes/{foodTypeId}</td>
+			<td>Gets all recipes for one food type by food type id</td>
+		</tr>
+		<tr>
+			<td>GET api/recipes/search/reviews/greater/{rating}</td>
+			<td>Gets all recipes with review ratings greater than or equal to rating</td>
+		</tr>
+		<tr>
+			<td>GET api/recipes/search/reviews/difficulty/{keyword}</td>
+			<td>Gets all recipes with review ratings containing the keyword</td>
+		</tr>
+		<tr>
+			<td>GET api/recipes/search/reviews/datecooked/{startDate}/{endDate}</td>
+			<td>Gets all recipes with review cook date(s) between the start date and end date</td>
 		</tr>
 		<tr>
 			<td>POST api/recipes</td>

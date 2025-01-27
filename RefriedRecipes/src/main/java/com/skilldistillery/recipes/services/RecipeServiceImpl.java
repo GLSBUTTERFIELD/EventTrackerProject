@@ -1,5 +1,6 @@
 package com.skilldistillery.recipes.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import com.skilldistillery.recipes.entities.Recipe;
 import com.skilldistillery.recipes.repositories.CategoryRepository;
 import com.skilldistillery.recipes.repositories.FoodTypeRepository;
 import com.skilldistillery.recipes.repositories.RecipeRepository;
+import com.skilldistillery.recipes.repositories.ReviewRepository;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -23,6 +25,9 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Autowired
 	private FoodTypeRepository foodTypeRepo;
+
+	@Autowired
+	private ReviewRepository reviewRepo;
 
 	@Override
 	public List<Recipe> findAll() {
@@ -65,6 +70,40 @@ public class RecipeServiceImpl implements RecipeService {
 			FoodType foodType = new FoodType();
 			foodType.setId(foodTypeId);
 			recipes = recipeRepo.findByFoodType(foodType);
+		}
+		return recipes;
+	}
+
+	@Override
+	public List<Recipe> findByReviewRatingGreaterThanOrEqualTo(double rating) {
+		List<Recipe> recipes = null;
+		try {
+			recipes = recipeRepo.findByReviewsRatingGreaterThanEqual(rating);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return recipes;
+	}
+
+	@Override
+	public List<Recipe> findByReviewDifficultyLevel(String keyword) {
+		List<Recipe> recipes = null;
+		try {
+			keyword = "%" + keyword + "%";
+			recipes = recipeRepo.findByReviewsDifficultyLike(keyword);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return recipes;
+	}
+
+	@Override
+	public List<Recipe> findByReviewDatesCooked(LocalDate start, LocalDate end) {
+		List<Recipe> recipes = null;
+		try {
+			recipes = recipeRepo.findByReviewsDateCookedBetween(start, end);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return recipes;
 	}
