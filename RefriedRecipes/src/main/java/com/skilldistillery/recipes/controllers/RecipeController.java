@@ -51,6 +51,55 @@ public class RecipeController {
 		return foundRecipe;
 	}
 
+	@GetMapping("recipes/search/{keyword}")
+	public List<Recipe> searchByKeyword(@PathVariable("keyword") String keyword, HttpServletResponse resp) {
+		List<Recipe> recipes = null;
+		try {
+			recipes = recipeService.findByTitleOrDescriptionKeyword(keyword);
+			if (recipes == null) {
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+			}
+		} catch (Exception e) {
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+			recipes = null;
+			e.printStackTrace();
+		}
+		return recipes;
+	}
+
+	@GetMapping("recipes/search/categories/{categoryId}")
+	public List<Recipe> findByCategoryId(@PathVariable("categoryId") int categoryId, HttpServletResponse resp) {
+		List<Recipe> recipes = null;
+		try {
+			recipes = recipeService.findByCategory(categoryId);
+			if (recipes == null) {
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+
+			}
+		} catch (Exception e) {
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+			e.printStackTrace();
+			recipes = null;
+		}
+		return recipes;
+	}
+
+	@GetMapping("recipes/search/foodtypes/{foodTypeId}")
+	public List<Recipe> findByFoodTypeId(@PathVariable("foodTypeId") int foodTypeId, HttpServletResponse resp) {
+		List<Recipe> recipes = null;
+		try {
+			recipes = recipeService.findByFoodTypeId(foodTypeId);
+			if (recipes == null) {
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+			}
+		} catch (Exception e) {
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+			recipes = null;
+			e.printStackTrace();
+		}
+		return recipes;
+	}
+
 	@GetMapping("recipes/{recipeId}/reviews")
 	public List<Review> showReviewsByRecipe(@PathVariable("recipeId") int recipeId, HttpServletResponse resp) {
 		Recipe recipe = recipeService.findById(recipeId);
@@ -58,15 +107,14 @@ public class RecipeController {
 		if (recipe != null) {
 			try {
 				reviews = reviewService.findByRecipeId(recipeId);
-				
+
 			} catch (Exception e) {
 				resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
 				reviews = null;
 				e.printStackTrace();
 			}
-		}
-		else {
-			resp.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+		} else {
+			resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
 			reviews = null;
 		}
 		return reviews;
@@ -107,7 +155,7 @@ public class RecipeController {
 		}
 		return recipe;
 	}
-	
+
 	@DeleteMapping("recipes/{recipeId}")
 	public void deleteRecipe(@PathVariable("recipeId") int recipeId, HttpServletResponse resp) {
 		try {

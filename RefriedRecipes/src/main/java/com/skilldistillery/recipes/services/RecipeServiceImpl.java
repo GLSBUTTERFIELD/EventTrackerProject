@@ -6,14 +6,23 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.recipes.entities.Category;
 import com.skilldistillery.recipes.entities.FoodType;
 import com.skilldistillery.recipes.entities.Recipe;
+import com.skilldistillery.recipes.repositories.CategoryRepository;
+import com.skilldistillery.recipes.repositories.FoodTypeRepository;
 import com.skilldistillery.recipes.repositories.RecipeRepository;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
 	@Autowired
 	private RecipeRepository recipeRepo;
+
+	@Autowired
+	private CategoryRepository categoryRepo;
+
+	@Autowired
+	private FoodTypeRepository foodTypeRepo;
 
 	@Override
 	public List<Recipe> findAll() {
@@ -28,6 +37,36 @@ public class RecipeServiceImpl implements RecipeService {
 			foundRecipe = recipeOpt.get();
 		}
 		return foundRecipe;
+	}
+
+	@Override
+	public List<Recipe> findByTitleOrDescriptionKeyword(String keyword) {
+		keyword = "%" + keyword + "%";
+		return recipeRepo.findByTitleLikeOrDescriptionLike(keyword, keyword);
+	}
+
+	@Override
+	public List<Recipe> findByCategory(int categoryId) {
+		if (!categoryRepo.existsById(categoryId)) {
+			return null;
+		} else {
+			Category category = new Category();
+			category.setId(categoryId);
+			return recipeRepo.findByCategories(category);
+		}
+	}
+
+	@Override
+	public List<Recipe> findByFoodTypeId(int foodTypeId) {
+		List<Recipe> recipes = null;
+		if (!foodTypeRepo.existsById(foodTypeId)) {
+			return null;
+		} else {
+			FoodType foodType = new FoodType();
+			foodType.setId(foodTypeId);
+			recipes = recipeRepo.findByFoodType(foodType);
+		}
+		return recipes;
 	}
 
 	@Override

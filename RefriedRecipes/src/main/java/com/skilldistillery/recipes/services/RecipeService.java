@@ -10,5 +10,8 @@ public interface RecipeService {
 	Recipe create(Recipe newRecipe);
 	Recipe update(Recipe updatedRecipe, int recipeId);
 	boolean delete(int recipeId);
+	List<Recipe> findByCategory(int categoryId);
+	List<Recipe> findByTitleOrDescriptionKeyword(String keyword);
+	List<Recipe> findByFoodTypeId(int foodTypeId);
 	
 }

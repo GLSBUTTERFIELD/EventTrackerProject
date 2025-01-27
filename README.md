@@ -6,13 +6,13 @@ Refried Recipes is a RESTful web service designed to capture recipes and recipe 
 Users have full or partial Create, Read, Update, and Delete (CRUD) functionality on the following entities:
 <ul>
 	<li><em>categories:</em> tags for specific kinds of meals, such as breakfast, quick, gluten free, etc. A recipe can have multiple categories.</li>
-	<li><em>food types: </em>describes the type of food, such as Korean, Italian, American, etc. A recipe can have one food type.</li>
-	<li><em>ingredients:</em> all ingredients in the database with optional description and image URL.</li>
-	</li><li>recipes: title, description, servings, prep and cook time, directions, source, and website and image URLs. Each recipe must have one food type.</li>
+	<li><em>food types: </em>describes the type of food, such as Korean, Italian, American, etc. A recipe must have one food type.</li>
+	<li><em>ingredients:</em> names of ingredients in the database with optional description and image URL.</li>
+	</li><li><em>recipes:</em> recipe title, description, servings, prep and cook time, directions, source, and website and image URLs. Each recipe must have one food type.</li>
 	<li><em>recipe ingredients:</em> ingredients (amount and unit) and notes for a specific recipe.</li> 
 	<li><em>reviews:</em> remarks, difficulty level, rating, and notes for the future for a specific recipe.</li>
 </ul>
-The following URL routes tested have tested successfully on postman:
+The following URL routes have been successfully tested on Postman:
 <h4>Recipes</h4>
 <table class="table table-bordered">
 	<thead>
@@ -170,13 +170,13 @@ The following URL routes tested have tested successfully on postman:
 </table>
 
 ### Implementation
+<img src="https://github.com/GLSBUTTERFIELD/EventTrackerProject/blob/main/DB/recipesdb.png?raw=true">
+
 After the initial set up, I start by mapping out my database tables. Rather than getting all the ingredients for a recipe in as a String (or TEXT in MySQL Workbench), I chose to create a separate ingredient table so I could then search for a recipe by ingredient and not have to parse through a String. I joined the recipe and ingredient tables together in a ManyToMany relationship, and Workbench created the virtual join table recipe_ingredient with a composite primary key of recipe_id and ingredient_id, and same goes for the ManyToMany relationship between category and recipe.
 
 After forward engineering barebones test data, I created all my entities and entity tests in JPA, writing and JUnit testing the basic entity mapping first and then adding and testing the entity relationships. Following some material on composite primary keys that Rob sent me, I created an embeddable RecipeIngredientId class that implements Serializable with just the primary keys, and then embedded the RecipeIngredientId into the RecipeIngredient entity. 
 
 I mapped full or partial CRUD functionality in my six RestControllers (and their corresponding Repositories, Services, and ServiceImpls), and tested each URL on Postman. I also added some custom query searches so users can find specific results. Finally, I went back to Workbench and tweaked some of the columns (and their corresponding data types in STS) before adding in more starter data.
-
-<img src="https://github.com/GLSBUTTERFIELD/EventTrackerProject/blob/main/DB/recipesdb.png?raw=true">
 
 ### Technologies & Methodologies Used
 <h4>Object Relational Mapping & Object-Oriented Design</h4>
@@ -210,11 +210,17 @@ I mapped full or partial CRUD functionality in my six RestControllers (and their
 		<li>Table inserts & forward engineering changes</li>
 	</ul> 
 	<li>Postman</li>
-	<li>Sublime</li>
 	<li>GitHub</li>
+	<li>Sublime</li>
 	<li>MacOS Terminal/terminal line commands</li>
 </ul>
 
 ### Lessons Learned
+The homework project this week reminded me to slow down and take my time. I ran into errors that were simple typos - like a missing curly brace or backslash in a Request Mapping - and the stack trace in the console didn't seem as useful as before. After slowing down to double check my code before moving onto the next big chunk, I got into a rhythm and made fewer mistakes than before.
+
+Checking in and asking for feedback at important junctures of a project (like confirming my database schema and relationships made sense - which, they didn't and Rob helped me figure out the composite primary key and which fields to put in the join table entity) helped with my time management so I wasn't wasting time on unused code. Receiving guidance on and confirmation of my code provided me with momentum to finish strong.
+
+I feel good about what I completed this weekend - I think I chose the right size project for my skillset, with reasonable user stories. I am curious if my URL mapping seems right, but it was fun seeing my code work on Postman and also using the status codes and stack trace to work through errors and unintended results. It's pretty incredible to see the evolution of our code - and it makes me grateful for those who created frameworks like Spring Data JPA with preloaded query methods, as I know the many involved steps it takes to request and receive data from MySQL.
 
 ### Stretch Goals
+I accomplished a lot of what I had hoped to with this project. I'm feeling a little less sure of my css and html skills after our group midterm project, so I'm looking forward to seeing how JavaScript fits into the front end of this project next week.
