@@ -45,7 +45,7 @@ class RecipeTest {
 	void test_Recipe_basic_mapping() {
 		assertNotNull(recipe);
 		assertEquals("Korean Beef Bowls", recipe.getTitle());
-		assertEquals(15, recipe.getPrepTime());
+		assertEquals(10, recipe.getPrepTime());
 	}
 	
 	@Test

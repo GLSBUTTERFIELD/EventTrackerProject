@@ -32,6 +32,8 @@ public class Recipe {
 	private int prepTime;
 	@Column(name="cook_time_minutes")
 	private int cookTime;
+	@Column(name="total_time_minutes")
+	private int totalTime;
 	private String directions;
 	private String source;
 	@Column(name="website_url")
@@ -97,6 +99,14 @@ public class Recipe {
 
 	public void setCookTime(int cookTime) {
 		this.cookTime = cookTime;
+	}
+
+	public int getTotalTime() {
+		return totalTime;
+	}
+
+	public void setTotalTime(int totalTime) {
+		this.totalTime = totalTime;
 	}
 
 	public String getServings() {
@@ -215,10 +225,10 @@ public class Recipe {
 	@Override
 	public String toString() {
 		return "Recipe [id=" + id + ", title=" + title + ", description=" + description + ", servings=" + servings
-				+ ", prepTime=" + prepTime + ", cookTime=" + cookTime + ", directions=" + directions + ", source="
-				+ source + ", websiteURL=" + websiteURL + ", imageURL=" + imageURL + ", createDate=" + createDate
-				+ ", lastUpdate=" + lastUpdate + ", enabled=" + enabled + "]";
+				+ ", prepTime=" + prepTime + ", cookTime=" + cookTime + ", totalTime=" + totalTime + ", directions="
+				+ directions + ", source=" + source + ", websiteURL=" + websiteURL + ", imageURL=" + imageURL
+				+ ", createDate=" + createDate + ", lastUpdate=" + lastUpdate + ", enabled=" + enabled + ", foodType="
+				+ foodType + "]";
 	}
-	
 	
 }

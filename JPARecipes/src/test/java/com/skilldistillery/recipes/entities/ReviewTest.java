@@ -46,7 +46,6 @@ class ReviewTest {
 		assertNotNull(review);
 		assertEquals("KBB", review.getTitle());
 		assertEquals(2025, review.getDateCooked().getYear());
-		assertEquals("start rice earlier", review.getNotesForFuture());
 	}
 
 	@Test

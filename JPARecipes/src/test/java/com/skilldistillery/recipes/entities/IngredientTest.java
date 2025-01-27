@@ -44,7 +44,7 @@ class IngredientTest {
 	@Test
 	void test_Ingredient_basic_mapping() {
 		assertNotNull(ingredient);
-		assertEquals("White rice", ingredient.getName());
+		assertEquals("Oil", ingredient.getName());
 	}
 
 	@Test

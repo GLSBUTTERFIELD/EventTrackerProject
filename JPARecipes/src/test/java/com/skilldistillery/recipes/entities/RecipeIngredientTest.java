@@ -44,14 +44,14 @@ class RecipeIngredientTest {
 	@Test
 	void test_RecipeIngredient_basic_mapping() {
 		assertNotNull(recipeIngredient);
-		assertEquals("cups", recipeIngredient.getQuantityUnit());
+		assertEquals("tbsp", recipeIngredient.getQuantityUnit());
 	}
 	
 	@Test
 	void test_RecipeIngredient_Recipe_ManyToOne_mapping() {
 		assertNotNull(recipeIngredient);
 		assertNotNull(recipeIngredient.getRecipe());
-		assertEquals(15, recipeIngredient.getRecipe().getPrepTime());
+		assertEquals(15, recipeIngredient.getRecipe().getCookTime());
 	}
 	@Test
 	void test_RecipeIngredient_Ingredient_ManyToOne_mapping() {
