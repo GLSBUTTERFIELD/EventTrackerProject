@@ -176,7 +176,7 @@ After forward engineering barebones test data, I created all my entities and ent
 
 I mapped full or partial CRUD functionality in my six RestControllers (and their corresponding Repositories, Services, and ServiceImpls), and tested each URL on Postman. I also added some custom query searches so users can find specific results. Finally, I went back to Workbench and tweaked some of the columns (and their corresponding data types in STS) before adding in more starter data.
 
-<image src="/Users/Gab/SD/Java/EventTracker/DB/recipesdb.png"></image>
+<img src="https://github.com/GLSBUTTERFIELD/EventTrackerProject/blob/main/DB/recipesdb.png?raw=true">
 
 ### Technologies & Methodologies Used
 <h4>Object Relational Mapping & Object-Oriented Design</h4>
