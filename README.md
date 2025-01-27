@@ -1,21 +1,19 @@
 # EventTrackerProject
 ### Overview
-Description of application's premise/purpose, what need it meets
-
-Refried Recipes is a RESTful web service designed to capture recipes and recipe reviews. It allows users to add in recipes they would like to try, then add ratings and notes after they've made and tasted the recipe, allowing them to access recipes in user-friendly ways like searching by ingredient, food type, 
+Refried Recipes is a RESTful web service designed to capture recipes and recipe reviews. Users can add recipes they've made or would like to try, then log a review with ratings and notes after they've created and tasted the recipe. The site provides access to recipes in user-friendly ways like searching by ingredient, food type, rating, total time to cook, amount of reviews, etc. Eventually, this data could be used to learn more about one's cooking and eating habits (for example, what kind of meals do I cook most during the week, how many weeks did I cook meat in the past 3 months, etc.) and provide knowledge and motivation for future food decisions.
 
 ### Description
 Users have full or partial Create, Read, Update, and Delete (CRUD) functionality on the following entities:
 <ul>
 	<li><em>categories:</em> tags for specific kinds of meals, such as breakfast, quick, gluten free, etc. A recipe can have multiple categories.</li>
 	<li><em>food types: </em>describes the type of food, such as Korean, Italian, American, etc. A recipe can have one food type.</li>
-	<li><em>ingredients:</em> all ingredients in the database with an optional description and image URL.</li>
+	<li><em>ingredients:</em> all ingredients in the database with optional description and image URL.</li>
 	</li><li>recipes: title, description, servings, prep and cook time, directions, source, and website and image URLs. Each recipe must have one food type.</li>
-	<li><em>recipe ingredients:</em> ingredients (amount and unit) and notes for for a specific recipe.</li> 
-	<li><em>reviews:</em> remarks, difficulty level, rating, and notes for the future of each record of making a recipe.
+	<li><em>recipe ingredients:</em> ingredients (amount and unit) and notes for a specific recipe.</li> 
+	<li><em>reviews:</em> remarks, difficulty level, rating, and notes for the future for a specific recipe.</li>
 </ul>
-Below are the current URL routes tested through postman:
-<h3>Recipes</h3>
+The following URL routes tested have tested successfully on postman:
+<h4>Recipes</h4>
 <table class="table table-bordered">
 	<thead>
 		<td><strong>Route</strong></td>
@@ -45,7 +43,7 @@ Below are the current URL routes tested through postman:
 	</tbody>
 </table>
 
-<h3>Categories</h3>
+<h4>Categories</h4>
 <table class="table table-bordered">
 	<thead>
 		<td><strong>Route</strong></td>
@@ -63,7 +61,7 @@ Below are the current URL routes tested through postman:
 	</tbody>
 </table>	
 
-<h3>Food Types</h3>
+<h4>Food Types</h4>
 <table class="table table-bordered">
 	<thead>
 		<td><strong>Route</strong></td>
@@ -81,7 +79,7 @@ Below are the current URL routes tested through postman:
 	</tbody>
 </table>
 
-<h3>Ingredients</h3>
+<h4>Ingredients</h4>
 <table class="table table-bordered">
 	<thead>
 		<td><strong>Route</strong></td>
@@ -111,7 +109,7 @@ Below are the current URL routes tested through postman:
 	</tbody>
 </table>
 
-<h3>Recipe Ingredients</h3>
+<h4>Recipe Ingredients</h4>
 <table class="table table-bordered">
 	<thead>
 		<td><strong>Route</strong></td>
@@ -137,7 +135,7 @@ Below are the current URL routes tested through postman:
 	</tbody>
 </table>
 
-<h3>Reviews</h3>
+<h4>Reviews</h4>
 <table class="table table-bordered">
 	<thead>
 		<td><strong>Route</strong></td>
@@ -171,17 +169,51 @@ Below are the current URL routes tested through postman:
 	</tbody>
 </table>
 
-
 ### Implementation
-Description of overall project structure
+After the initial set up, I start by mapping out my database tables. Rather than getting all the ingredients for a recipe in as a String (or TEXT in MySQL Workbench), I chose to create a separate ingredient table so I could then search for a recipe by ingredient and not have to parse through a String. I joined the recipe and ingredient tables together in a ManyToMany relationship, and Workbench created the virtual join table recipe_ingredient with a composite primary key of recipe_id and ingredient_id, and same goes for the ManyToMany relationship between category and recipe.
 
-ERDiagram.png
+After forward engineering barebones test data, I created all my entities and entity tests in JPA, writing and JUnit testing the basic entity mapping first and then adding and testing the entity relationships. Following some material on composite primary keys that Rob sent me, I created an embeddable RecipeIngredientId class that implements Serializable with just the primary keys, and then embedded the RecipeIngredientId into the RecipeIngredient entity. 
+
+I mapped full or partial CRUD functionality in my six RestControllers (and their corresponding Repositories, Services, and ServiceImpls), and tested each URL on Postman. I also added some custom query searches so users can find specific results. Finally, I went back to Workbench and tweaked some of the columns (and their corresponding data types in STS) before adding in more starter data.
+
+<image src="/Users/Gab/SD/Java/EventTracker/DB/recipesdb.png"></image>
 
 ### Technologies & Methodologies Used
-bullet list or table of technologies/libraries/frameworks used
-
-bullet list or table of development techniques (pair programming, agile, git collaboration, etc.)
-
+<h4>Object Relational Mapping & Object-Oriented Design</h4>
+<ul>
+	<li>SpringToolSuite</li>
+	<li>REST Controller</li>
+	<ul>
+		<li>GET, POST, PUT, DELETE mappings</li>
+		<li>JSON and @JsonIgnore to serialize recursion</li>
+		<li>HttpServletResponse to set status codes</li>
+	</ul>
+	<li>Spring Data JPA</li>
+	<ul>
+		<li>Entity relationship mapping</li>
+		<li>Embeddable composite primary key class</li>
+		<li>JUnit tests</li>
+	</ul>
+	<li>Spring Boot</li>
+	<ul>
+		<li>Repository Interfaces & basic CRUD methods</li>
+		<li>Service Interfaces & ServiceImpl Classes</li>
+		<li>Optional Objects 
+		<li>Query Builder</li>
+	</ul>
+	<li>JPA</li>
+	<li>Hibernate</li>
+	<li>MySQL/MySQL Workbench</li>
+	<ul>
+		<li>Schema/ER Diagram design</li>
+		<li>Database creation & placing relationships</li>
+		<li>Table inserts & forward engineering changes</li>
+	</ul> 
+	<li>Postman</li>
+	<li>Sublime</li>
+	<li>GitHub</li>
+	<li>MacOS Terminal/terminal line commands</li>
+</ul>
 
 ### Lessons Learned
 
