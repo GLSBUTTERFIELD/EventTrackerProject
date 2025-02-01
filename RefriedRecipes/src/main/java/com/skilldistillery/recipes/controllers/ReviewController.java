@@ -25,9 +25,19 @@ public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 
-	@GetMapping({ "reviews", "reviews/" })
-	public List<Review> showAll() {
-		return reviewService.showAll();
+	@GetMapping("{recipeId}/reviews")
+	public List<Review> showByRecipeId(@PathVariable("recipeId") int recipeId, HttpServletResponse resp) {
+		List<Review> reviews = reviewService.findByRecipeId(recipeId);
+		try {
+			if (reviews == null) {
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+			}
+		} catch (Exception e) {
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+			reviews = null;
+			e.printStackTrace();
+		}
+		return reviews;
 	}
 
 	@GetMapping("{recipeId}/reviews/{reviewId}")
@@ -86,19 +96,17 @@ public class ReviewController {
 	@DeleteMapping("{recipeId}/reviews/{reviewId}")
 	public void disable(@PathVariable("recipeId") int recipeId, @PathVariable("reviewId") int reviewId,
 			HttpServletResponse resp) {
-			try {
-				if (reviewService.disable(reviewId)) {
-					resp.setStatus(HttpServletResponse.SC_NO_CONTENT); //204
-				}
-				else {
-					resp.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
-				}
-			} catch (Exception e) {
-				resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); //400
-				e.printStackTrace();
+		try {
+			if (reviewService.disable(reviewId)) {
+				resp.setStatus(HttpServletResponse.SC_NO_CONTENT); // 204
+			} else {
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
 			}
-			
-		
+		} catch (Exception e) {
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+			e.printStackTrace();
+		}
+
 	}
 
 }

@@ -101,25 +101,25 @@ public class RecipeController {
 		return recipes;
 	}
 
-	@GetMapping("recipes/{recipeId}/reviews")
-	public List<Review> showReviewsByRecipe(@PathVariable("recipeId") int recipeId, HttpServletResponse resp) {
-		Recipe recipe = recipeService.findById(recipeId);
-		List<Review> reviews = null;
-		if (recipe != null) {
-			try {
-				reviews = reviewService.findByRecipeId(recipeId);
-
-			} catch (Exception e) {
-				resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
-				reviews = null;
-				e.printStackTrace();
-			}
-		} else {
-			resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
-			reviews = null;
-		}
-		return reviews;
-	}
+//	@GetMapping("recipes/{recipeId}/reviews")
+//	public List<Review> showReviewsByRecipe(@PathVariable("recipeId") int recipeId, HttpServletResponse resp) {
+//		Recipe recipe = recipeService.findById(recipeId);
+//		List<Review> reviews = null;
+//		if (recipe != null) {
+//			try {
+//				reviews = reviewService.findByRecipeId(recipeId);
+//
+//			} catch (Exception e) {
+//				resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+//				reviews = null;
+//				e.printStackTrace();
+//			}
+//		} else {
+//			resp.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+//			reviews = null;
+//		}
+//		return reviews;
+//	}
 
 //working but showing 200 OK for reviews without ratings
 	@GetMapping("recipes/search/reviews/greater/{rating}")

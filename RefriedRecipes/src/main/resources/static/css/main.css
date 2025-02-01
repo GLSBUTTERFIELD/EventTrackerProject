@@ -11,3 +11,12 @@ th, tr {
 	text-align: center;
 }
 
+
+.recipe-view-img {
+	height: 25hv;
+	width: 25vw;
+}
+
+.ingredients-list{
+ text-align: left;	
+}
