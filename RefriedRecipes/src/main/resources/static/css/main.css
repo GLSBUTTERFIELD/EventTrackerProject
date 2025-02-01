@@ -1,0 +1,13 @@
+body {
+	background-color: #dfba90;
+}
+
+.recipe-thumbnail-img {
+	height: 25vh;
+	width: 12Svw;
+}
+
+th, tr {
+	text-align: center;
+}
+
