@@ -19,48 +19,51 @@ function loadNewRecipeForm() {
 	listDiv.style.display = 'none';
 	let form = document.createElement('form');
 	form.name = 'addRecipeForm';
-	form.method = '';
-	form.action = '';
 
 	addDiv.appendChild(form);
 	let label = document.createElement('label');
 	label.for = 'title';
+	label.textContent = 'Recipe Title';
 	form.appendChild(label);
 	let input = document.createElement('input');
+	input.type = 'title';
 	input.type = 'text';
 	input.name = 'title';
-	input.placeholder = 'Recipe Title';
 	form.appendChild(input);
 	let div = document.createElement('div');
 	form.appendChild(div);
 
 	label = document.createElement('label');
 	label.for = 'description';
+	label.textContent = 'Description';
 	form.appendChild(label);
 	textarea = document.createElement('textarea');
+	textarea.id = 'description';
 	textarea.name = 'description';
-	textarea.placeholder = 'Description';
 	form.appendChild(textarea);
 	div = document.createElement('div');
 	form.appendChild(div);
 
 	label = document.createElement('label');
 	label.for = 'directions';
+	label.textContent = 'Directions';
 	form.appendChild(label);
 	textarea = document.createElement('textarea');
+	textarea.id = 'directions';
 	textarea.name = 'directions';
-	textarea.placeholder = 'Directions (do not number. Instead, add a semi-colon (;) and a space between each new step.';
+	textarea.placeholder = 'Do not number each step; instead, add a semi-colon (;) and a space between each new direction.';
 	form.appendChild(textarea);
 	div = document.createElement('div');
 	form.appendChild(div);
 
 	label = document.createElement('label');
 	label.for = 'servings';
+	label.textContent = 'Servings';
 	form.appendChild(label);
 	input = document.createElement('input');
+	input.type = 'servings';
 	input.type = 'number';
 	input.name = 'servings';
-	input.placeholder = 'servings';
 	input.min = '1';
 	form.appendChild(input);
 	div = document.createElement('div');
@@ -68,11 +71,12 @@ function loadNewRecipeForm() {
 
 	label = document.createElement('label');
 	label.for = 'prepTime';
+	label.textContent = 'Prep Time (min)';
 	form.appendChild(label);
 	input = document.createElement('input');
+	input.type = 'prepTime';
 	input.type = 'number';
 	input.name = 'prepTime';
-	input.placeholder = 'Prep Time (min)';
 	input.min = '1';
 	form.appendChild(input);
 	div = document.createElement('div');
@@ -80,11 +84,12 @@ function loadNewRecipeForm() {
 
 	label = document.createElement('label');
 	label.for = 'cookTime';
+	label.textContent = 'Cook Time (min)';
 	form.appendChild(label);
 	input = document.createElement('input');
+	input.type = 'cookTime';
 	input.type = 'number';
 	input.name = 'cookTime';
-	input.placeholder = 'Cook Time (min)';
 	input.min = '1';
 	form.appendChild(input);
 	div = document.createElement('div');
@@ -93,47 +98,84 @@ function loadNewRecipeForm() {
 
 	label = document.createElement('label');
 	label.for = 'source';
+	label.textContent='Sourced from';
 	form.appendChild(label);
 	input = document.createElement('input');
+	input.type = 'source';
 	input.type = 'text';
 	input.name = 'source';
-	input.placeholder = 'Sourced from';
 	form.appendChild(input);
 	div = document.createElement('div');
 	form.appendChild(div);
 
 	label = document.createElement('label');
 	label.for = 'websiteURL';
+	label.textContent = 'Website URL ';
 	form.appendChild(label);
 	input = document.createElement('input');
+	input.type = 'websiteURL';
 	input.type = 'text';
 	input.name = 'websiteURL';
-	input.placeholder = 'Website URL';
 	form.appendChild(input);
 	div = document.createElement('div');
 	form.appendChild(div);
 
 	label = document.createElement('label');
 	label.for = 'imageURL';
+	label.textContent = 'Image URL ';
 	form.appendChild(label);
 	input = document.createElement('input');
+	input.id = 'imageURL';
 	input.type = 'text';
 	input.name = 'imageURL';
-	input.placeholder = 'Image URL';
 	form.appendChild(input);
 	div = document.createElement('div');
 	form.appendChild(div);
 
-	let p = document.createElement('p');
-	//form.textContent = 'Food Type:'
-	form.appendChild(p);
 	label = document.createElement('label');
 	label.for = 'foodType';
+	label.textContent= 'Food Type';
+	form.appendChild(label);
+	let select = document.createElement('select');
+	select.id = 'foodType';
+	select.name = 'foodType';
+	form.appendChild(select);
+	let option = document.createElement('option');
+	option.value='Korean';
+	option.textContent ='Korean';
+	option.textContent='required';
+	select.appendChild(option);
+	option=document.createElement('option');
+	option.value='Japanese';
+	option.textContent='Japanese';
+	select.appendChild(option);
+	option=document.createElement('option');
+	option.value='Italian';
+	option.textContent='Italian';
+	select.appendChild(option);
+	option=document.createElement('option');
+	option.value='Indian';
+	option.textContent='Indian';
+	select.appendChild(option);
+	option=document.createElement('option');
+	option.value='American';
+	option.textContent='American';
+	select.appendChild(option);
+	option=document.createElement('option');
+	//option.value='Vietnamese';
+	option.textContent='Vietnamese';
+	select.appendChild(option);
+	div = document.createElement('div');
+	form.appendChild(div);
+	
+	label = document.createElement('label');
+	label.textContent='Category(ies)';
+	label.for='categories';
 	form.appendChild(label);
 	input = document.createElement('input');
-	input.type = 'radio';
-	input.name = 'foodType';
-	form.appendChild(input);
+	input.type = 'checkbox';
+	input.id='category1';
+	input.name='categories';
 	
 	
 	
