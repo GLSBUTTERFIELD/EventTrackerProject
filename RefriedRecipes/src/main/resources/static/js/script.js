@@ -1,16 +1,168 @@
-console.log('script.js loaded');
-
 window.addEventListener('load', function(e) {
-	console.log('Document loaded.');
 	init();
 });
 
-
 function init() {
-	console.log('In init');
 	loadRecipeList();
-
+	let newRecipeLink = document.getElementById('newRecipe');
+	newRecipeLink.addEventListener('click', function(e) {
+		loadNewRecipeForm();
+	});
 	//TODO: event listeners for HTML form buttons, etc.
+}
+
+function loadNewRecipeForm() {
+	let recipeDiv = document.getElementById('recipeDetailsDiv');
+	let listDiv = document.getElementById('recipeListDiv');
+	let addDiv = document.getElementById('addRecipeDiv');
+	recipeDiv.style.display = 'none';
+	listDiv.style.display = 'none';
+	let form = document.createElement('form');
+	form.name = 'addRecipeForm';
+	form.method = '';
+	form.action = '';
+
+	addDiv.appendChild(form);
+	let label = document.createElement('label');
+	label.for = 'title';
+	form.appendChild(label);
+	let input = document.createElement('input');
+	input.type = 'text';
+	input.name = 'title';
+	input.placeholder = 'Recipe Title';
+	form.appendChild(input);
+	let div = document.createElement('div');
+	form.appendChild(div);
+
+	label = document.createElement('label');
+	label.for = 'description';
+	form.appendChild(label);
+	textarea = document.createElement('textarea');
+	textarea.name = 'description';
+	textarea.placeholder = 'Description';
+	form.appendChild(textarea);
+	div = document.createElement('div');
+	form.appendChild(div);
+
+	label = document.createElement('label');
+	label.for = 'directions';
+	form.appendChild(label);
+	textarea = document.createElement('textarea');
+	textarea.name = 'directions';
+	textarea.placeholder = 'Directions (do not number. Instead, add a semi-colon (;) and a space between each new step.';
+	form.appendChild(textarea);
+	div = document.createElement('div');
+	form.appendChild(div);
+
+	label = document.createElement('label');
+	label.for = 'servings';
+	form.appendChild(label);
+	input = document.createElement('input');
+	input.type = 'number';
+	input.name = 'servings';
+	input.placeholder = 'servings';
+	input.min = '1';
+	form.appendChild(input);
+	div = document.createElement('div');
+	form.appendChild(div);
+
+	label = document.createElement('label');
+	label.for = 'prepTime';
+	form.appendChild(label);
+	input = document.createElement('input');
+	input.type = 'number';
+	input.name = 'prepTime';
+	input.placeholder = 'Prep Time (min)';
+	input.min = '1';
+	form.appendChild(input);
+	div = document.createElement('div');
+	form.appendChild(div);
+
+	label = document.createElement('label');
+	label.for = 'cookTime';
+	form.appendChild(label);
+	input = document.createElement('input');
+	input.type = 'number';
+	input.name = 'cookTime';
+	input.placeholder = 'Cook Time (min)';
+	input.min = '1';
+	form.appendChild(input);
+	div = document.createElement('div');
+	form.appendChild(div);
+
+
+	label = document.createElement('label');
+	label.for = 'source';
+	form.appendChild(label);
+	input = document.createElement('input');
+	input.type = 'text';
+	input.name = 'source';
+	input.placeholder = 'Sourced from';
+	form.appendChild(input);
+	div = document.createElement('div');
+	form.appendChild(div);
+
+	label = document.createElement('label');
+	label.for = 'websiteURL';
+	form.appendChild(label);
+	input = document.createElement('input');
+	input.type = 'text';
+	input.name = 'websiteURL';
+	input.placeholder = 'Website URL';
+	form.appendChild(input);
+	div = document.createElement('div');
+	form.appendChild(div);
+
+	label = document.createElement('label');
+	label.for = 'imageURL';
+	form.appendChild(label);
+	input = document.createElement('input');
+	input.type = 'text';
+	input.name = 'imageURL';
+	input.placeholder = 'Image URL';
+	form.appendChild(input);
+	div = document.createElement('div');
+	form.appendChild(div);
+
+	let p = document.createElement('p');
+	//form.textContent = 'Food Type:'
+	form.appendChild(p);
+	label = document.createElement('label');
+	label.for = 'foodType';
+	form.appendChild(label);
+	input = document.createElement('input');
+	input.type = 'radio';
+	input.name = 'foodType';
+	form.appendChild(input);
+	
+	
+	
+	input = document.createElement('input');
+	input.type = 'submit';
+	input.value = 'Submit';
+	form.appendChild(input);
+	
+}
+
+function addNewRecipe() {
+	let xhr = new XMLHttpRequest();
+	xhr.open('POST', 'api/recipes');
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200 || xhr.status === 201) {
+				let recipe = JSON.parse(xhr.responseText);
+				getRecipe(recipe.id);
+			}
+		}
+		else {
+			console.error(xhr.status + ': ' + xhr.responseText);
+			//displayError('Recipe not found');
+		}
+	};
+
+	let newRecipeJson = JSON.stringify(recipe);
+	xhr.send(newRecipeJson);
 }
 
 function loadRecipeList() {
@@ -90,16 +242,6 @@ function displayRecipeList(recipes) {
 		}
 	}
 }
-
-function displayError(message) {
-	let div = document.getElementById('recipeDetailsDiv');
-	div.textContent = '';
-	let errMsg = document.createElement('h2');
-	errMsg.textContent = message;
-	div.appendChild(errMsg);
-}
-
-
 function getRecipe(recipeId) {
 	let xhr = new XMLHttpRequest();
 	console.log(recipeId);
@@ -118,19 +260,9 @@ function getRecipe(recipeId) {
 	xhr.send();
 }
 
-
 function displayRecipe(recipe) {
 	showDetails();
 	let recipeDiv = document.getElementById('recipeDetailsDiv');
-	let backButton = document.createElement('button');
-	backButton.textContent = "Back to list";
-	backButton.classList.add('btn', 'btn-primary');
-
-	backButton.addEventListener('click', function(e) {
-		loadRecipeList();
-		showList();
-	});
-	recipeDiv.appendChild(backButton);
 
 	let h1 = document.createElement('h1');
 	h1.textContent = recipe.title;
@@ -178,6 +310,13 @@ function displayRecipe(recipe) {
 	showIngredients(recipe.recipeIngredients, recipeDiv);
 	showDirections(recipe.directions, recipeDiv);
 	getReviewsByRecipeId(recipe.id, recipeDiv);
+}
+function displayError(message) {
+	let div = document.getElementById('recipeDetailsDiv');
+	div.textContent = '';
+	let errMsg = document.createElement('h2');
+	errMsg.textContent = message;
+	div.appendChild(errMsg);
 }
 
 function showDetails() {
@@ -228,50 +367,6 @@ function showIngredients(ingredientList, recipeDiv) {
 
 }
 
-function showReviews(reviewList, recipeDiv) {
-	let h2 = document.createElement('h2');
-	h2.textContent = "Reviews";
-	recipeDiv.appendChild(h2);
-
-	for (let review of reviewList) {
-		let strong = document.createElement('strong');
-		strong.textContent = review.title;
-		recipeDiv.appendChild(strong);
-
-		let table = document.createElement('table');
-		recipeDiv.appendChild(table);
-		let tbody = document.createElement('tbody');
-		table.appendChild(tbody);
-		let tr = document.createElement('tr');
-		tbody.appendChild(tr);
-		let td = document.createElement('td');
-		td.textContent = 'Rating: ' + review.rating + '/10';
-		tr.appendChild(td);
-
-		td = document.createElement('td');
-		td.textContent = 'Difficulty: ' + review.difficulty;
-		tr.appendChild(td);
-
-		td = document.createElement('td');
-		td.textContent = 'Cooked ' + review.dateCooked;
-		tr.appendChild(td);
-
-		td = document.createElement('td');
-		td.textContent = 'Review updated: ' + review.lastUpdate;
-		tr.appendChild(td);
-
-		let blockquote = document.createElement('blockquote');
-		blockquote.textContent = review.remarks;
-		recipeDiv.appendChild(blockquote);
-
-		let p = document.createElement('p');
-		p.textContent = review.notesForFuture;
-		recipeDiv.appendChild(p);
-
-	};
-
-}
-
 function getReviewsByRecipeId(recipeId) {
 	let xhr = new XMLHttpRequest();
 	xhr.open('GET', `api/recipes/${recipeId}/reviews`);
@@ -290,6 +385,63 @@ function getReviewsByRecipeId(recipeId) {
 	};
 	xhr.send();
 }
+
+function showReviews(reviewList, recipeDiv) {
+	let h2 = document.createElement('h2');
+	h2.textContent = "Reviews";
+	recipeDiv.appendChild(h2);
+
+	for (let review of reviewList) {
+		let table = document.createElement('table');
+		table.classList.add('review-table');
+		recipeDiv.appendChild(table);
+		let thead = document.createElement('thead');
+		table.appendChild(thead);
+		let tr = document.createElement('tr');
+		thead.appendChild(tr);
+		let th = document.createElement('th');
+		th.classList.add('review-table-header');
+		th.colspan = "0";
+		th.textContent = review.title;
+		tr.appendChild(th);
+
+		let tbody = document.createElement('tbody');
+		table.appendChild(tbody);
+		tr = document.createElement('tr');
+		tbody.appendChild(tr);
+		let td = document.createElement('td');
+		td.textContent = 'Rating: ' + review.rating + '/10';
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = 'Difficulty: ' + review.difficulty;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = 'Cooked ' + review.dateCooked;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = 'Last updated: ' + review.lastUpdate;
+		tr.appendChild(td);
+
+		let p = document.createElement('p');
+		p.classList.add('review-table-remarks');
+		p.textContent = review.remarks;
+		table.appendChild(p);
+
+		p = document.createElement('p');
+		p.classList.add('review-table-notes');
+		p.textContent = 'Notes for the future: ' + review.notesForFuture;
+		table.appendChild(p);
+
+		let br = document.createElement('br');
+		recipeDiv.appendChild(br);
+
+	};
+
+}
+
 
 
 

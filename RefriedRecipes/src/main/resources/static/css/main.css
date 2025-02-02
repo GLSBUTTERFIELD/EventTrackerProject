@@ -11,12 +11,38 @@ th, tr {
 	text-align: center;
 }
 
-
 .recipe-view-img {
 	height: 25hv;
 	width: 25vw;
 }
 
-.ingredients-list{
- text-align: left;	
+.ingredients-list {
+	text-align: left;
+}
+
+#navbar {
+	background-color: #dfba90 !important;
+}
+
+.review-table-header {
+	font-weight: bold;
+	text-align: center;
+	font-size: 25px
+}
+
+.review-table{
+	background-color: rgba(106, 158, 215, 0.6);
+	border: 2px black;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.review-table-remarks {
+	font-size: 20px;
+}
+
+.review-table-notes {
+	font-style: italic;	
+	font-size: 20px;
+		
 }

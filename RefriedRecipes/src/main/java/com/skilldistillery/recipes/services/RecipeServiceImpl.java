@@ -113,6 +113,7 @@ public class RecipeServiceImpl implements RecipeService {
 		Recipe created = null;
 		try {
 			created = newRecipe;
+			created.setTotalTime(created.getCookTime() + created.getPrepTime());
 			created.setEnabled(true);
 			recipeRepo.saveAndFlush(created);
 		} catch (Exception e) {
