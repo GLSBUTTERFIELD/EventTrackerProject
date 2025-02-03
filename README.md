@@ -12,7 +12,7 @@ Users have full or partial Create, Read, Update, and Delete (CRUD) functionality
 	<li><em>recipe ingredients:</em> ingredients (amount and unit) and notes for a specific recipe.</li> 
 	<li><em>reviews:</em> remarks, difficulty level, rating, and notes for the future for a specific recipe.</li>
 </ul>
-The following URL routes have been successfully tested on Postman:
+The following URL routes have been successfully tested on Postman (bolded routes are visible and tested on the front end):
 <h4>Recipes</h4>
 <table class="table table-bordered">
 	<thead>
@@ -21,12 +21,12 @@ The following URL routes have been successfully tested on Postman:
 	</thead>
 	<tbody>
 		<tr>
-			<td>GET api/recipes (or api/recipes/)</td>
-			<td>Gets all recipes</td>
+			<td><strong>GET api/recipes (or api/recipes/)</strong></td>
+			<td><strong>Gets all recipes</strong></td>
 		</tr>
 		<tr>
-			<td>GET api/recipes/{recipeId}</td>
-			<td>Gets one recipe by id</td>
+			<td><strong>GET api/recipes/{recipeId}</strong></td>
+			<td><strong>Gets one recipe by id</strong></td>
 		</tr>
 		<tr>
 			<td>GET api/recipes/search/{searchword}</td>
@@ -53,16 +53,16 @@ The following URL routes have been successfully tested on Postman:
 			<td>Gets all recipes with review cook date(s) between the start date and end date</td>
 		</tr>
 		<tr>
-			<td>POST api/recipes</td>
-			<td>Creates a new recipe</td>
+			<td><strong>POST api/recipes</strong></td>
+			<td><strong>Creates a new recipe</strong></td>
 		</tr>
 		<tr>
-			<td>PUT api/recipes/{recipeId}</td>
-			<td>Replaces an existing recipe by id</td>
+			<td><strong>PUT api/recipes/{recipeId}</strong></td>
+			<td><strong>Replaces an existing recipe by id</strong></td>
 		</tr>
 		<tr>
-			<td>DELETE api/recipes/{recipeId}</td>
-			<td>Deletes an existing recipe by id</td>
+			<td><strong>DELETE api/recipes/{recipeId}</strong></td>
+			<td><strong>Deletes an existing recipe by id</strong></td>
 		</tr>
 	</tbody>
 </table>
@@ -193,74 +193,59 @@ The following URL routes have been successfully tested on Postman:
 	</tbody>
 </table>
 
-### Implementation
+### Database
+#### Technologies Used
+<li>MySQL/MySQL Workbench</li>
+	<ul>
+		<li>Schema/ER Diagram design</li>
+		<li>Database creation & placing relationships</li>
+		<li>Table inserts & forward engineering changes</li>
+	</ul> 
+<li>JPA</li><ul>
+	<li>Hibernate</li></ul>
 <img src="https://github.com/GLSBUTTERFIELD/EventTrackerProject/blob/main/DB/recipesdb.png?raw=true">
 
-After the initial set up, I start by mapping out my database tables. Rather than getting all the ingredients for a recipe in as a String (or TEXT in MySQL Workbench), I chose to create a separate ingredient table so I could then search for a recipe by ingredient and not have to parse through a String. I joined the recipe and ingredient tables together in a ManyToMany relationship, and Workbench created the virtual join table recipe_ingredient with a composite primary key of recipe_id and ingredient_id, and same goes for the ManyToMany relationship between category and recipe.
-
-After forward engineering barebones test data, I created all my entities and entity tests in JPA, writing and JUnit testing the basic entity mapping first and then adding and testing the entity relationships. Following some material on composite primary keys that Rob sent me, I created an embeddable RecipeIngredientId class that implements Serializable with just the primary keys, and then embedded the RecipeIngredientId into the RecipeIngredient entity. 
-
-I mapped full or partial CRUD functionality in my six RestControllers (and their corresponding Repositories, Services, and ServiceImpls), and tested each URL on Postman. I also added some custom query searches so users can find specific results. Finally, I went back to Workbench and tweaked some of the columns (and their corresponding data types in STS) before adding in more starter data.
-
-### Database
-## Technologies Used
-## Lessons Learned
+#### Lessons Learned
+In the future, I think having more specific columns (even if that means increasing the number of columns) would allow me to manipulate each item with more detail and improve the design and flow of the front end.
 
 ### REST API
-## Technologies used
-## Lessons Learned
-
-### JavaScript/AJAX/HTML Front End
-## Technologies Used
-## Lessons Learned
-
-### Angular Front End
-## Technologies Used
-## Lessons Learned
-
-### Technologies & Methodologies Used
-<h4>Object Relational Mapping & Object-Oriented Design</h4>
-<ul>
-	<li>SpringToolSuite</li>
-	<li>REST Controller</li>
+#### Technologies used
+<li>REST Controller</li>
 	<ul>
 		<li>GET, POST, PUT, DELETE mappings</li>
 		<li>JSON and @JsonIgnore to serialize recursion</li>
 		<li>HttpServletResponse to set status codes</li>
 	</ul>
-	<li>Spring Data JPA</li>
+<li>Spring Data JPA</li>
 	<ul>
 		<li>Entity relationship mapping</li>
 		<li>Embeddable composite primary key class</li>
 		<li>JUnit tests</li>
 	</ul>
-	<li>Spring Boot</li>
+<li>Spring Boot</li>
 	<ul>
 		<li>Repository Interfaces & basic CRUD methods</li>
 		<li>Service Interfaces & ServiceImpl Classes</li>
 		<li>Optional Objects 
 		<li>Query Builder</li>
 	</ul>
-	<li>JPA</li>
-	<li>Hibernate</li>
-	<li>MySQL/MySQL Workbench</li>
-	<ul>
-		<li>Schema/ER Diagram design</li>
-		<li>Database creation & placing relationships</li>
-		<li>Table inserts & forward engineering changes</li>
-	</ul> 
-	<li>Postman</li>
-	<li>GitHub</li>
-	<li>Sublime</li>
-	<li>MacOS Terminal/terminal line commands</li>
-</ul>
+<li>Postman</li>
 
-### Lessons Learned
-The homework project this week reminded me to slow down and take my time. I ran into errors that were simple typos - like a missing curly brace or backslash in a Request Mapping - and the stack trace in the console didn't seem as useful as before. After slowing down to double check my code before moving onto the next big chunk, I got into a rhythm and made fewer mistakes than before.
+#### Lessons Learned
+While I didn't mind mapping out multiple entities and their relationships, I didn't realize how much work it would cause future me. I wish I would have started with one or two entities with more specific fields as I think that would have created less work.
 
-Checking in and asking for feedback at important junctures of a project (like confirming my database schema and relationships made sense - which, they didn't and Rob helped me figure out the composite primary key and which fields to put in the join table entity) helped with my time management so I wasn't wasting time on unused code. Receiving guidance on and confirmation of my code provided me with momentum to finish strong.
+### JavaScript/AJAX/HTML Front End
+#### Technologies Used
+<li>Chrome Dev Tools</li>
+<li>JavaScript</li><ul>
+	<li>getElementBy</li>
+	<li>appendChild</li>
+	<li>XMLHttpRequest</li></ul>
+<li>html</li>
 
-I feel good about what I completed this weekend - I think I chose the right size project for my skillset, with reasonable user stories. I am curious if my URL mapping seems right, but it was fun seeing my code work on Postman and also using the status codes and stack trace to work through errors and unintended results. It's pretty incredible to see the evolution of our code - and it makes me grateful for those who created frameworks like Spring Data JPA with preloaded query methods, as I know the many involved steps it takes to request and receive data from MySQL.
+#### Lessons Learned
+I dislike how huge my script.js is and think more time (and practice) planning out my web design and corresponding js files to make things more concise - but adding all the various elements to create a table takes up a lot of code lines.
 
-### Stretch Goals
-I accomplished a lot of what I had hoped to with this project. I'm feeling a little less sure of my css and html skills after our group midterm project, so I'm looking forward to seeing how JavaScript fits into the front end of this project next week.
+### Angular Front End
+## Technologies Used
+## Lessons Learned
