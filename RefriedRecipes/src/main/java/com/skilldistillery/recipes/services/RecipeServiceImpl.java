@@ -145,6 +145,7 @@ public class RecipeServiceImpl implements RecipeService {
 				}
 				recipeToUpdate.setImageURL(updatedRecipe.getImageURL());
 				recipeToUpdate.setPrepTime(updatedRecipe.getPrepTime());
+				recipeToUpdate.setTotalTime(updatedRecipe.getCookTime() + updatedRecipe.getPrepTime());
 				recipeToUpdate.setRecipeIngredients(updatedRecipe.getRecipeIngredients());
 				recipeToUpdate.setReviews(updatedRecipe.getReviews());
 				recipeToUpdate.setServings(updatedRecipe.getServings());
@@ -154,6 +155,7 @@ public class RecipeServiceImpl implements RecipeService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}
 		return recipeToUpdate;
 	}

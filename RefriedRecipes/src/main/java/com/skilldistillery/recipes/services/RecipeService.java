@@ -17,5 +17,4 @@ public interface RecipeService {
 	List<Recipe> findByReviewRatingGreaterThanOrEqualTo(double rating);
 	List<Recipe> findByReviewDifficultyLevel(String keyword);
 	List<Recipe> findByReviewDatesCooked(LocalDate start, LocalDate end);
-	
 }

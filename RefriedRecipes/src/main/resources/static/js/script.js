@@ -11,6 +11,19 @@ function init() {
 	//TODO: event listeners for HTML form buttons, etc.
 }
 
+function showAverageRecipeTime(recipes) {
+	let totalTimeForAllRecipes = 0;
+	if (recipes && Array.isArray(recipes))
+		for (let recipe of recipes) {
+			if (!isNaN(recipe.totalTime)) {
+				totalTimeForAllRecipes += recipe.totalTime;
+			}
+		}
+	let averageTime = Math.round(totalTimeForAllRecipes / recipes.length);
+	let timeDiv = document.getElementById('averageTime');
+	timeDiv.textContent = 'Average Recipe Time: ' + averageTime + ' minutes';
+}
+
 function loadNewRecipeForm() {
 	let recipeDiv = document.getElementById('recipeDetailsDiv');
 	let listDiv = document.getElementById('recipeListDiv');
@@ -327,6 +340,7 @@ function loadRecipeList() {
 			if (xhr.status === 200) {
 				let recipes = JSON.parse(xhr.responseText);
 				displayRecipeList(recipes);
+				showAverageRecipeTime(recipes);
 			}
 		}
 		else {
@@ -749,6 +763,7 @@ function loadEditRecipeForm(recipe) {
 	input.addEventListener('click', function(e) {
 		e.preventDefault();
 		let updatedRecipe = {
+			id:recipe.id,
 			title: editRecipeForm.title.value,
 			description: editRecipeForm.description.value,
 			servings: editRecipeForm.servings.value,
@@ -763,19 +778,21 @@ function loadEditRecipeForm(recipe) {
 				name: editRecipeForm.foodType.textContent,
 			},
 		};
-		updateRecipe(updatedRecipe.id);
+		updateRecipe(updatedRecipe);
 		editRecipeForm.reset();
 	});
 }
 
-function updateRecipe(recipeId, updatedRecipe) {
+function updateRecipe(updatedRecipe) {
 	let xhr = new XMLHttpRequest();
-	xhr.open('PUT', `api/recipes/${recipeId}`);
+	xhr.open('PUT', `api/recipes/${updatedRecipe.id}`);
 	xhr.setRequestHeader('Content-type', 'application/json');
-	xhr.onreadystatechange = function() {
+	xhr.onreadystatechange = function(response) {
+		console.log('response is ', response)
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200 || xhr.status === 201) {
 				let recipe = JSON.parse(xhr.responseText);
+				console.log('recipe from xhr response text', recipe)
 				getRecipe(recipe.id);
 			}
 		}
@@ -791,8 +808,11 @@ function deleteRecipe(recipeId) {
 	let xhr = new XMLHttpRequest();
 	xhr.open('DELETE', `api/recipes/${recipeId}`);
 	xhr.onreadystatechange = function() {
-		if (xhr.readyState === 4 && xhr.status === 200) {
-			loadRecipeList();
+		if (xhr.readyState === 4) {
+			if (xhr.status === 204 || xhr.status === 200) {
+				console.log('loading recipe list after delete');
+				window.location.href="";
+			}
 		}
 		else {
 			console.error(xhr.status + ': ' + xhr.responseText);

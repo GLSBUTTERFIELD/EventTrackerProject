@@ -17,5 +17,4 @@ public interface RecipeRepository extends JpaRepository <Recipe, Integer>{
 	List<Recipe> findByReviewsRatingGreaterThanEqual(double rating);
 	List<Recipe> findByReviewsDifficultyLike(String keyword);
 	List<Recipe> findByReviewsDateCookedBetween(LocalDate start, LocalDate end);
-
 }
