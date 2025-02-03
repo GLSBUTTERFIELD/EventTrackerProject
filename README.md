@@ -8,11 +8,11 @@ Users have full or partial Create, Read, Update, and Delete (CRUD) functionality
 	<li><em>categories:</em> tags for specific kinds of meals, such as breakfast, quick, gluten free, etc. A recipe can have multiple categories.</li>
 	<li><em>food types: </em>describes the type of food, such as Korean, Italian, American, etc. A recipe must have one food type.</li>
 	<li><em>ingredients:</em> names of ingredients in the database with optional description and image URL.</li>
-	</li><li><em>recipes:</em> recipe title, description, servings, prep and cook time, directions, source, and website and image URLs. Each recipe must have one food type.</li>
-	<li><em>recipe ingredients:</em> ingredients (amount and unit) and notes for a specific recipe.</li> 
-	<li><em>reviews:</em> remarks, difficulty level, rating, and notes for the future for a specific recipe.</li>
+</li><li><em>recipes:</em> recipe title, description, servings, prep and cook time, directions, source, and website and image URLs. Each recipe must have one food type.</li>
+<li><em>recipe ingredients:</em> ingredients (amount and unit) and notes for a specific recipe.</li> 
+<li><em>reviews:</em> remarks, difficulty level, rating, and notes for the future for a specific recipe.</li>
 </ul>
-The following URL routes have been successfully tested on Postman (bolded routes are visible and tested on the front end):
+The following URL routes have been successfully tested on Postman:
 <h4>Recipes</h4>
 <table class="table table-bordered">
 	<thead>
@@ -21,12 +21,12 @@ The following URL routes have been successfully tested on Postman (bolded routes
 	</thead>
 	<tbody>
 		<tr>
-			<td><strong>GET api/recipes (or api/recipes/)</strong></td>
-			<td><strong>Gets all recipes</strong></td>
+			<td><em>GET api/recipes (or api/recipes/)</em></td>
+			<td><em>Gets all recipes</em></td>
 		</tr>
 		<tr>
-			<td><strong>GET api/recipes/{recipeId}</strong></td>
-			<td><strong>Gets one recipe by id</strong></td>
+			<td><em>GET api/recipes/{recipeId}</em></td>
+			<td><em>Gets one recipe by id</em></td>
 		</tr>
 		<tr>
 			<td>GET api/recipes/search/{searchword}</td>
@@ -53,16 +53,16 @@ The following URL routes have been successfully tested on Postman (bolded routes
 			<td>Gets all recipes with review cook date(s) between the start date and end date</td>
 		</tr>
 		<tr>
-			<td><strong>POST api/recipes</strong></td>
-			<td><strong>Creates a new recipe</strong></td>
+			<td><em>POST api/recipes</em></td>
+			<td><em>Creates a new recipe</em></td>
 		</tr>
 		<tr>
-			<td><strong>PUT api/recipes/{recipeId}</strong></td>
-			<td><strong>Replaces an existing recipe by id</strong></td>
+			<td><em>PUT api/recipes/{recipeId}</em></td>
+			<td><em>Replaces an existing recipe by id</em></td>
 		</tr>
 		<tr>
-			<td><strong>DELETE api/recipes/{recipeId}</strong></td>
-			<td><strong>Deletes an existing recipe by id</strong></td>
+			<td><em>DELETE api/recipes/{recipeId}</em></td>
+			<td><em>Deletes an existing recipe by id</em></td>
 		</tr>
 	</tbody>
 </table>
@@ -74,7 +74,7 @@ The following URL routes have been successfully tested on Postman (bolded routes
 		<td><strong>Functionality</strong></td>
 	</thead>
 	<tbody>	
-	<tr>
+		<tr>
 			<td>GET api/recipes/categories (or api/recipes/categories/)</td>
 			<td>Gets all categories</td>
 		</tr>
@@ -195,57 +195,59 @@ The following URL routes have been successfully tested on Postman (bolded routes
 
 ### Database
 #### Technologies Used
-<li>MySQL/MySQL Workbench</li>
-	<ul>
-		<li>Schema/ER Diagram design</li>
-		<li>Database creation & placing relationships</li>
-		<li>Table inserts & forward engineering changes</li>
-	</ul> 
-<li>JPA</li><ul>
+MySQL/MySQL Workbench
+<ul>
+	<li>Schema/ER Diagram design</li>
+	<li>Database creation & placing relationships</li>
+	<li>Table inserts & forward engineering changes</li>
+</ul> 
+JPA
+<ul>
 	<li>Hibernate</li></ul>
-<img src="https://github.com/GLSBUTTERFIELD/EventTrackerProject/blob/main/DB/recipesdb.png?raw=true">
+	<img src="https://github.com/GLSBUTTERFIELD/EventTrackerProject/blob/main/DB/recipesdb.png?raw=true">
 
-#### Lessons Learned
-In the future, I think having more specific columns (even if that means increasing the number of columns) would allow me to manipulate each item with more detail and improve the design and flow of the front end.
+	#### Lessons Learned
+	In the future, I think having more specific columns (even if that means increasing the number of columns) would allow me to manipulate each item with more detail and improve the design and flow of the front end.
 
-### REST API
-#### Technologies used
-<li>REST Controller</li>
+	### REST API
+	#### Technologies used
+	REST Controller
 	<ul>
-		<li>GET, POST, PUT, DELETE mappings</li>
-		<li>JSON and @JsonIgnore to serialize recursion</li>
-		<li>HttpServletResponse to set status codes</li>
+	<li>GET, POST, PUT, DELETE mappings</li>
+	<li>JSON and @JsonIgnore to serialize recursion</li>
+	<li>HttpServletResponse to set status codes</li>
 	</ul>
-<li>Spring Data JPA</li>
+	Spring Data JPA
 	<ul>
-		<li>Entity relationship mapping</li>
-		<li>Embeddable composite primary key class</li>
-		<li>JUnit tests</li>
+	<li>Entity relationship mapping</li>
+	<li>Embeddable composite primary key class</li>
+	<li>JUnit tests</li>
 	</ul>
-<li>Spring Boot</li>
+	Spring Boot
 	<ul>
-		<li>Repository Interfaces & basic CRUD methods</li>
-		<li>Service Interfaces & ServiceImpl Classes</li>
-		<li>Optional Objects 
-		<li>Query Builder</li>
+	<li>Repository Interfaces & basic CRUD methods</li>
+	<li>Service Interfaces & ServiceImpl Classes</li>
+	<li>Optional Objects 
+	<li>Query Builder</li>
 	</ul>
-<li>Postman</li>
+	Postman
 
-#### Lessons Learned
-While I didn't mind mapping out multiple entities and their relationships, I didn't realize how much work it would cause future me. I wish I would have started with one or two entities with more specific fields as I think that would have created less work.
+	#### Lessons Learned
+	While I didn't mind mapping out multiple entities and their relationships, I didn't realize how much work it would cause future me. I wish I would have started with one or two entities with more specific fields as I think that would have created less work.
 
-### JavaScript/AJAX/HTML Front End
-#### Technologies Used
-<li>Chrome Dev Tools</li>
-<li>JavaScript</li><ul>
+	### JavaScript/AJAX/HTML Front End
+	#### Technologies Used
+	Chrome Dev Tools
+	JavaScript
+	<ul>
 	<li>getElementBy</li>
 	<li>appendChild</li>
 	<li>XMLHttpRequest</li></ul>
-<li>html</li>
+	html
 
-#### Lessons Learned
-I dislike how huge my script.js is and think more time (and practice) planning out my web design and corresponding js files to make things more concise - but adding all the various elements to create a table takes up a lot of code lines.
+	#### Lessons Learned
+	I dislike how huge my script.js is and think more time (and practice) planning out my web design and corresponding js files to make things more concise - but adding all the various elements to create a table takes up a lot of code lines.
 
-### Angular Front End
-## Technologies Used
-## Lessons Learned
+	### Angular Front End
+	#### Technologies Used
+	#### Lessons Learned
