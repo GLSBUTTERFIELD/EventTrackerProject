@@ -12,7 +12,7 @@ Users have full or partial Create, Read, Update, and Delete (CRUD) functionality
 <li><em>recipe ingredients:</em> ingredients (amount and unit) and notes for a specific recipe.</li> 
 <li><em>reviews:</em> remarks, difficulty level, rating, and notes for the future for a specific recipe.</li>
 </ul>
-The following URL routes have been successfully tested on Postman:
+The following URL routes have been successfully tested on Postman (italicized routes successfully work on the front end):
 <h4>Recipes</h4>
 <table class="table table-bordered">
 	<thead>
@@ -206,12 +206,12 @@ JPA
 	<li>Hibernate</li></ul>
 	<img src="https://github.com/GLSBUTTERFIELD/EventTrackerProject/blob/main/DB/recipesdb.png?raw=true">
 
-	#### Lessons Learned
-	In the future, I think having more specific columns (even if that means increasing the number of columns) would allow me to manipulate each item with more detail and improve the design and flow of the front end.
+#### Lessons Learned
+In the future, I think having more specific columns (even if that means increasing the number of columns) would allow me to manipulate each item with more detail and improve the design and flow of the front end.
 
-	### REST API
-	#### Technologies used
-	REST Controller
+### REST API
+#### Technologies used
+REST Controller
 	<ul>
 	<li>GET, POST, PUT, DELETE mappings</li>
 	<li>JSON and @JsonIgnore to serialize recursion</li>
@@ -232,12 +232,12 @@ JPA
 	</ul>
 	Postman
 
-	#### Lessons Learned
-	While I didn't mind mapping out multiple entities and their relationships, I didn't realize how much work it would cause future me. I wish I would have started with one or two entities with more specific fields as I think that would have created less work.
+#### Lessons Learned
+While I didn't mind mapping out multiple entities and their relationships, I didn't realize how much work it would cause future me. I wish I would have started with one or two entities with more specific fields as I think that would have created less work.
 
-	### JavaScript/AJAX/HTML Front End
-	#### Technologies Used
-	Chrome Dev Tools
+### JavaScript/AJAX/HTML Front End
+#### Technologies Used
+Chrome Dev Tools
 	JavaScript
 	<ul>
 	<li>getElementBy</li>
@@ -245,9 +245,9 @@ JPA
 	<li>XMLHttpRequest</li></ul>
 	html
 
-	#### Lessons Learned
-	I dislike how huge my script.js is and think more time (and practice) planning out my web design and corresponding js files to make things more concise - but adding all the various elements to create a table takes up a lot of code lines.
+#### Lessons Learned
+I dislike how huge my script.js is and think more time (and practice) planning out my web design and corresponding js files to make things more concise - but adding all the various elements to create a table takes up a lot of code lines.
 
-	### Angular Front End
-	#### Technologies Used
-	#### Lessons Learned
+### Angular Front End
+#### Technologies Used
+#### Lessons Learned
