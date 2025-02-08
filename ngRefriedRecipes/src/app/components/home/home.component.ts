@@ -15,6 +15,10 @@ import { Recipe } from '../../models/recipe';
 })
 export class HomeComponent implements OnInit{
 recipes: Recipe [] = [];
+selected: Recipe | null = null;
+editRecipe: Recipe | null = null;
+newRecipe: Recipe = new Recipe();
+
 constructor(
   private recipeService: RecipeService,
 ){}
@@ -34,5 +38,32 @@ loadRecipeList(): void {
     },
   });
 }
+
+showRecipe(recipe: Recipe): void {
+  this.selected = recipe;
+}
+
+displayList() {
+  this.selected=null;
+}
+
+setEditRecipe(): void{
+  this.editRecipe = Object.assign({}, this.selected);
+}
+
+updateRecipe(recipe: Recipe, setSelected: boolean = true) : void {
+  this.recipeService.update(recipe).subscribe({
+    next: (updatedRecipe)=>{
+      this.loadRecipeList();
+      if (setSelected){
+        this.selected = updatedRecipe;
+      }
+      this.editRecipe = null;
+    },
+    error: (err) =>
+      console.log('Error updated Recipe in Home component')
+  });
+}
+
 
 }

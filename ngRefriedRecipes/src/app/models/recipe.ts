@@ -1,4 +1,7 @@
+import { Category } from "./category";
 import { FoodType } from "./food-type";
+import { RecipeIngredient } from "./recipe-ingredient";
+import { Review } from "./review";
 
 export class Recipe {
   id: number;
@@ -16,6 +19,9 @@ export class Recipe {
   createDate: string;
   lastUpdate: string;
   foodType: FoodType;
+  reviews: Review [] | undefined;
+  categories: Category [] | undefined;
+  recipeIngredients: RecipeIngredient[] | undefined;
 
 constructor(
   id: number = 0,
@@ -33,6 +39,9 @@ constructor(
   createDate: string = '',
   lastUpdate: string = '',
   foodType: FoodType = new FoodType(),
+  reviews: Review[] = [],
+  categories: Category[] = [],
+  recipeIngredients: RecipeIngredient[] = [],
 )
 {
 this.id = id;
@@ -50,6 +59,9 @@ this.createDate = createDate;
 this.lastUpdate = lastUpdate;
 this.enabled = enabled;
 this.foodType = foodType;
+this.reviews = reviews;
+this.categories = categories;
+this.recipeIngredients = recipeIngredients;
 }
 
 }

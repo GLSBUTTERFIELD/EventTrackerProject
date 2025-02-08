@@ -27,6 +27,16 @@ export class RecipeService {
     );
   }
 
+  public update(recipe: Recipe): Observable<Recipe> {
+    return this.http.put<Recipe>(`${this.url}/${recipe.id}`, recipe).pipe(
+      catchError((err: any) =>{
+        console.log(err);
+        return throwError(
+          ()=> new Error('RecipeService.update(): error retrieving recipe: ' + err)
+        );
+      })
+    )
+  }
 
-  
+
 }

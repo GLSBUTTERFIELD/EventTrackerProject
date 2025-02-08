@@ -1,10 +1,51 @@
 <h1> Refried Recipes</h1>
-
-<div *ngFor="let recipe of recipes">
+<div *ngIf="!selected">
+<div *ngFor="let recipe of recipes" (click)="showRecipe(recipe)">
   <p>{{recipe.id}}</p>
-  <p>{{recipe.title}}</p>
-  <p>{{recipe.directions}}</p>
+  <h1>{{recipe.title}}</h1>
+  <p>{{recipe.description}}</p>
+  <p>Prep Time: {{recipe.prepTime}} minutes</p>
+  <p>Cook Time: {{recipe.cookTime}} minutes</p>
+  <p>Total Time: {{recipe.totalTime}} minutes</p>
   <p>Food Type: {{recipe.foodType.name}}</p>
+  <p>Categories</p>
+  <ul>
+    <li *ngFor="let category of recipe.categories">{{category.name}}</li>
+  </ul><br>
+  <button (click) ="setEditRecipe()">Edit</button>
+</div>
+</div> <br>
+
+<div *ngIf="selected && ! editRecipe">
+  <h1>{{selected.title}}</h1>
+  <p>{{selected.id}}</p>
+  <p>Food Type: {{selected.foodType.name}}</p>
+  <p *ngFor="let category of selected.categories">Categories: {{category.name}}</p>
+  <ul>
+    <li class="ingredientList" *ngFor="let recipeIngredient of selected.recipeIngredients">{{recipeIngredient.quantityAmount}} {{recipeIngredient.quantityUnit}}
+      {{recipeIngredient.ingredient.name}}</li></ul>
+      <p>{{selected.directions}}</p>
+      <p *ngFor="let review of selected.reviews">{{review.title}}</p>
+  <button (click) ="displayList()">Back</button>
+  <button (click) ="setEditRecipe()">Edit</button>
+</div>
+
+<div class="container" *ngIf="editRecipe">
+  <form>
+    <label for="title">Title</label>
+    <input type="text" name="title" [(ngModel)]="editRecipe.title"><br>
+    <label for ="description">Description</label>
+    <textarea name="description" [(ngModel)]="editRecipe.description"></textarea><br>
+    <label for="prepTime">Prep Time</label>
+    <input type="number" name="prepTime" [(ngModel)]="editRecipe.prepTime"><br>
+    <label for="prepTime">Cook Time</label>
+    <input type="number" name="prepTime" [(ngModel)]="editRecipe.cookTime"><br>
+    <label for="prepTime">Total Time</label>
+    <input type="number" name="prepTime" [(ngModel)]="editRecipe.totalTime" value =><br>
+
+  </form>
+  <button class="btn btn-warning" (click) ="displayList()">Back</button>
+  <button class="btn btn-success" (click)="updateRecipe(editRecipe)">Save</button>
 
 
 </div>
