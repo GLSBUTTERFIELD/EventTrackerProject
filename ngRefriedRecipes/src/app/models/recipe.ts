@@ -13,8 +13,8 @@ export class Recipe {
   totalTime: number;
   directions: string;
   source: string;
-  websiteUrl: string;
-  imageUrl: string;
+  websiteURL: string;
+  imageURL: string;
   enabled: boolean;
   createDate: string;
   lastUpdate: string;
@@ -33,8 +33,8 @@ constructor(
   totalTime: number = 0,
   directions: string = '',
   source: string = ' ',
-  websiteUrl: string = '',
-  imageUrl: string = ' ',
+  websiteURL: string = '',
+  imageURL: string = ' ',
   enabled: boolean = true,
   createDate: string = '',
   lastUpdate: string = '',
@@ -53,8 +53,8 @@ this.cookTime = cookTime;
 this.totalTime = totalTime;
 this.directions = directions;
 this.source = source;
-this.websiteUrl = websiteUrl;
-this.imageUrl =  imageUrl;
+this.websiteURL = websiteURL;
+this.imageURL =  imageURL;
 this.createDate = createDate;
 this.lastUpdate = lastUpdate;
 this.enabled = enabled;

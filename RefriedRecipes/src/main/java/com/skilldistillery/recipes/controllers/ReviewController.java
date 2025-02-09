@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.recipes.entities.Category;
 import com.skilldistillery.recipes.entities.Review;
 import com.skilldistillery.recipes.services.ReviewService;
 
@@ -20,13 +21,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @CrossOrigin({"*", "http://localhost/"})
-@RequestMapping("api/recipes")
+@RequestMapping("api")
 @RestController
 public class ReviewController {
 
 	@Autowired
 	private ReviewService reviewService;
 
+	@GetMapping({ "reviews", "reviews/" })
+	public List<Review> findAll() {
+		return reviewService.showAll();
+	}
+	
 	@GetMapping("{recipeId}/reviews")
 	public List<Review> showByRecipeId(@PathVariable("recipeId") int recipeId, HttpServletResponse resp) {
 		List<Review> reviews = reviewService.findByRecipeId(recipeId);
@@ -42,7 +48,7 @@ public class ReviewController {
 		return reviews;
 	}
 
-	@GetMapping("{recipeId}/reviews/{reviewId}")
+	@GetMapping("recipes/{recipeId}/reviews/{reviewId}")
 	public Review showReview(@PathVariable("recipeId") int recipeId, @PathVariable("reviewId") int reviewId,
 			HttpServletResponse resp) {
 		Review review = null;
@@ -59,7 +65,7 @@ public class ReviewController {
 		return review;
 	}
 
-	@PostMapping("{recipeId}/reviews")
+	@PostMapping("recipes/{recipeId}/reviews")
 	public Review addNewReview(@PathVariable("recipeId") int recipeId, @RequestBody Review review,
 			HttpServletResponse resp, HttpServletRequest req) {
 		try {
@@ -79,7 +85,7 @@ public class ReviewController {
 		return review;
 	}
 
-	@PutMapping("{recipeId}/reviews/{reviewId}")
+	@PutMapping("recipes/{recipeId}/reviews/{reviewId}")
 	public Review edit(@PathVariable("reviewId") int reviewId, @PathVariable("recipeId") int recipeId,
 			@RequestBody Review review, HttpServletResponse resp) {
 		try {
@@ -95,7 +101,7 @@ public class ReviewController {
 		return review;
 	}
 
-	@DeleteMapping("{recipeId}/reviews/{reviewId}")
+	@DeleteMapping("recipes/{recipeId}/reviews/{reviewId}")
 	public void disable(@PathVariable("recipeId") int recipeId, @PathVariable("reviewId") int reviewId,
 			HttpServletResponse resp) {
 		try {

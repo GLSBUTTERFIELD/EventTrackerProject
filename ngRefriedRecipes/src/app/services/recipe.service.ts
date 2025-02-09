@@ -13,7 +13,6 @@ export class RecipeService {
 
   constructor(
     private http: HttpClient,
-
   ) { }
 
   index(): Observable<Recipe[]> {
@@ -25,6 +24,17 @@ export class RecipeService {
         );
       })
     );
+  }
+
+  public create(recipe: Recipe): Observable<Recipe> {
+    return this.http.post<Recipe>(this.url, recipe).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          ()=> new Error ('RecipeService.create(): error retrieving recipe ' + err)
+        );
+      })
+    )
   }
 
   public update(recipe: Recipe): Observable<Recipe> {
