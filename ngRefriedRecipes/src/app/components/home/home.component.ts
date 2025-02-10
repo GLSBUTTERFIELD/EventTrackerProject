@@ -84,6 +84,7 @@ setEditRecipe(): void{
 addRecipe(newRecipe: Recipe){
   this.recipeService.create(newRecipe).subscribe({
     next:(newRecipe) => {
+      this.selected= null;
       // this.newRecipe = new Recipe();
       this.loadRecipeList();
       this.newRecipe = null;
@@ -94,7 +95,9 @@ addRecipe(newRecipe: Recipe){
   }
 
 addRecipeForm(){
-    this.newRecipe = new Recipe();
+  this.selected=null;
+  this.editRecipe=null;
+  this.newRecipe = new Recipe();
   }
 
 updateRecipe(recipe: Recipe, setSelected: boolean = true) : void {

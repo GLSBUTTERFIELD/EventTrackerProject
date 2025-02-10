@@ -237,12 +237,12 @@ While I didn't mind mapping out multiple entities and their relationships, I did
 
 ### JavaScript/AJAX/HTML Front End
 #### Technologies Used
-Chrome Dev Tools
+Chrome Dev Tools<br>
 JavaScript
 	<ul>
 	<li>getElementBy</li>
 	<li>appendChild</li>
-	<li>XMLHttpRequest</li></ul>
+	<li>XMLHttpRequest</li></ul><br>
 html
 
 #### Lessons Learned
@@ -250,20 +250,20 @@ I dislike how huge my script.js is and think more time (and practice) planning o
 
 ### Angular Front End
 #### Technologies Used
-VS Code
-ng Command Line Interface
+VS Code<br>
+ng Command Line Interface<br>
 TypeScript<ul>
 	<li>variables</li>
 	<li>functions</li>
 </ul>
-Components, Models, Services
+Components, Models, Services<br>
 Directives<ul>
 	<li>*ngFor</li>
 	<li>*ngIf</li></ul>
-Event Bindings
+Event Bindings<br>
 HttpClient<ul>
-	<li>Observable< ></li>
+	<li>Observable <></li>
 	<li>subscribe</li></ul>
 
 #### Lessons Learned
-I think I need more time to get used to how the different Angular pieces fit together, as I struggled keeping track of all my components, services, and models. I like how Angular utilizes directives and event bindings to keep my code condensed and I hope to feel more confident once I've coded Angular more.
+I like how Angular utilizes directives and event bindings to keep my code condensed, but I felt very challenged by how the different Angular components, models, and services fit together with my backend code. Unfortunately, I wasn't able to get the FoodType to stick to my new recipe, so it's defaulting to Other (from the backend), but I am able to update the FoodType after it's been added. 
