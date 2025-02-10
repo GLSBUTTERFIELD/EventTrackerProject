@@ -238,16 +238,32 @@ While I didn't mind mapping out multiple entities and their relationships, I did
 ### JavaScript/AJAX/HTML Front End
 #### Technologies Used
 Chrome Dev Tools
-	JavaScript
+JavaScript
 	<ul>
 	<li>getElementBy</li>
 	<li>appendChild</li>
 	<li>XMLHttpRequest</li></ul>
-	html
+html
 
 #### Lessons Learned
 I dislike how huge my script.js is and think more time (and practice) planning out my web design and corresponding js files to make things more concise - but adding all the various elements to create a table takes up a lot of code lines.
 
 ### Angular Front End
 #### Technologies Used
+VS Code
+ng Command Line Interface
+TypeScript<ul>
+	<li>variables</li>
+	<li>functions</li>
+</ul>
+Components, Models, Services
+Directives<ul>
+	<li>*ngFor</li>
+	<li>*ngIf</li></ul>
+Event Bindings
+HttpClient<ul>
+	<li>Observable< ></li>
+	<li>subscribe</li></ul>
+
 #### Lessons Learned
+I think I need more time to get used to how the different Angular pieces fit together, as I struggled keeping track of all my components, services, and models. I like how Angular utilizes directives and event bindings to keep my code condensed and I hope to feel more confident once I've coded Angular more.
