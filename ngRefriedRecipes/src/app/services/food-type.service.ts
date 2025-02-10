@@ -9,7 +9,7 @@ import { FoodType } from '../models/food-type';
   providedIn: 'root'
 })
 export class FoodTypeService {
-  private url = environment.baseUrl + 'api/recipes';
+  private url = environment.baseUrl + 'api/recipes/foodtypes';
 
   constructor(
         private http: HttpClient,

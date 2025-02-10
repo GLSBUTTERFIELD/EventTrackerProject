@@ -1,3 +1,4 @@
+import { FoodTypeService } from './../../services/food-type.service';
 import { RecipeService } from './../../services/recipe.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -18,12 +19,13 @@ export class HomeComponent implements OnInit{
 recipes: Recipe [] = [];
 selected: Recipe | null = null;
 editRecipe: Recipe | null = null;
-newRecipe: Recipe = new Recipe();
+newRecipe: Recipe | null = null;
 foodTypes: FoodType[] = [];
 
 
 constructor(
   private recipeService: RecipeService,
+  private foodTypeService: FoodTypeService,
 ){}
 
 ngOnInit(): void {
@@ -44,9 +46,11 @@ loadRecipeList(): void {
 }
 
 loadFoodTypeList(): void {
-  this.recipeService.index().subscribe({
-    next:(recipeList) => {
-      this.recipes = recipeList;
+  this.foodTypeService.index().subscribe({
+    next:(foodTypeList) => {
+      console.log(foodTypeList);
+      this.foodTypes = foodTypeList;
+      console.log("this.foodTypes", this.foodTypes);
     } ,
     error: (err) => {
       console.log('HomeComponent.loadFoodTypeList: error');
@@ -57,10 +61,14 @@ loadFoodTypeList(): void {
 
 showRecipe(recipe: Recipe): void {
   this.selected = recipe;
+  console.log("selected", this.selected);
 }
 
 displayList() {
   this.selected=null;
+  this.newRecipe = null;
+  this.editRecipe = null;
+  console.log("display List", this.selected);
 }
 
 setEditRecipe(): void{
@@ -79,10 +87,12 @@ addRecipe(newRecipe: Recipe){
   }
 
   addRecipeForm(){
+    console.log('AddRecipeForm button clicked');
     this.newRecipe = new Recipe();
   }
 
 updateRecipe(recipe: Recipe, setSelected: boolean = true) : void {
+  console.log(recipe);
   this.recipeService.update(recipe).subscribe({
     next: (updatedRecipe)=>{
       this.loadRecipeList();
