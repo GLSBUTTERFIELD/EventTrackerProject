@@ -16,6 +16,7 @@ import { FoodType } from '../../models/food-type';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
+title ="Refried Recipes";
 recipes: Recipe [] = [];
 selected: Recipe | null = null;
 editRecipe: Recipe | null = null;
@@ -31,12 +32,19 @@ constructor(
 ngOnInit(): void {
   this.loadRecipeList();
   this.loadFoodTypeList();
+  this.countRecipes();
+}
+
+countRecipes(): number{
+  console.log(this.recipes.length);
+  return this.recipes.length;
 }
 
 loadRecipeList(): void {
   this.recipeService.index().subscribe({
     next:(recipeList) => {
       this.recipes = recipeList;
+      this.loadFoodTypeList();
     } ,
     error: (err) => {
       console.log('HomeComponent.loadRecipeList: error');
@@ -61,14 +69,12 @@ loadFoodTypeList(): void {
 
 showRecipe(recipe: Recipe): void {
   this.selected = recipe;
-  console.log("selected", this.selected);
 }
 
 displayList() {
   this.selected=null;
   this.newRecipe = null;
   this.editRecipe = null;
-  console.log("display List", this.selected);
 }
 
 setEditRecipe(): void{
@@ -78,16 +84,16 @@ setEditRecipe(): void{
 addRecipe(newRecipe: Recipe){
   this.recipeService.create(newRecipe).subscribe({
     next:(newRecipe) => {
-      this.newRecipe = new Recipe();
+      // this.newRecipe = new Recipe();
       this.loadRecipeList();
+      this.newRecipe = null;
     } ,
     error:(err: any) =>
       console.error('Error creating Recipe in home component')
   });
   }
 
-  addRecipeForm(){
-    console.log('AddRecipeForm button clicked');
+addRecipeForm(){
     this.newRecipe = new Recipe();
   }
 
@@ -95,15 +101,33 @@ updateRecipe(recipe: Recipe, setSelected: boolean = true) : void {
   console.log(recipe);
   this.recipeService.update(recipe).subscribe({
     next: (updatedRecipe)=>{
-      this.loadRecipeList();
       if (setSelected){
         this.selected = updatedRecipe;
       }
+      else{
+        this.editRecipe = null;
+      }
+      this.loadRecipeList();
+      this.selected = null;
       this.editRecipe = null;
     },
     error: (err) =>
       console.log('Error updated Recipe in Home component')
   });
+}
+
+deleteRecipe(id: number){
+  this.recipeService.destroy(id).subscribe({
+    next:() => {
+      this.loadRecipeList();
+      this.selected = null;
+      this.editRecipe = null;
+    },
+    error: (err)=>{
+      console.log('Error deleting Recipe in Home component');
+    }
+  });
+
 }
 
 

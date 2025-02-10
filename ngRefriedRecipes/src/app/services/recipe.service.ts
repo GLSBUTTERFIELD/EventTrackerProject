@@ -48,5 +48,15 @@ export class RecipeService {
     )
   }
 
+  public destroy(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`).pipe (
+      catchError((err: any) => {
+        console.log(err);
+      return throwError(
+        ()=> new Error('RecipeService.destroy(): error retrieving recipe ' + err)
+      );
+  })
+)
+  }
 
 }
